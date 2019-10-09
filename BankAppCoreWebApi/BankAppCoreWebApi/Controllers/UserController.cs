@@ -40,9 +40,11 @@ namespace BankAppCoreWebApi.Controllers
 
 		// POST api/values
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public void Post([FromBody] User user)
 		{
-
+			var db = new WebApiContext();
+			db.Add(user);
+			db.SaveChanges();
 		}
 
 		// PUT api/values/5
