@@ -39,27 +39,33 @@ namespace BankAppCoreWebApi.Controllers
 		// POST api/values
 		[HttpPost]
 		[Route("register")]
-		public string PostRegister([FromBody] User user)
+		public int PostRegister([FromBody] User user)
 		{
 			var db = new WebApiContext();
-			db.Add(user);
-			db.SaveChanges();
-			return "Kayıt Başayıyla Yapıldı.";
-
-
+			try
+			{
+				db.Add(user);
+				db.SaveChanges();
+			}
+			catch (System.Exception)
+			{
+				return 0;
+			}
+			return 1;
 		}
 
 		[HttpPost]
 		[Route("login")]
-		public string PostLogin([FromBody] User user)
+		public User PostLogin([FromBody] User user)
 		{
 			var db = new WebApiContext();
 			var isUserValid = db.Users.FirstOrDefault(x => x.userName == user.userName && x.userPassword == user.userPassword);
+			
 			if (isUserValid!=null)
 			{
-				return "Giriş Yapıldı.";
+				return isUserValid;
 			}
-			return "Kullanıcı adı veya şifre yanlış.";
+			return null;
 		}
 
 		// PUT api/values/5
