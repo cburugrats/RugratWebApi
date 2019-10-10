@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAppCoreWebApi.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -40,11 +38,28 @@ namespace BankAppCoreWebApi.Controllers
 
 		// POST api/values
 		[HttpPost]
-		public void Post([FromBody] User user)
+		[Route("register")]
+		public string PostRegister([FromBody] User user)
 		{
 			var db = new WebApiContext();
 			db.Add(user);
 			db.SaveChanges();
+			return "Kayıt Başayıyla Yapıldı.";
+
+
+		}
+
+		[HttpPost]
+		[Route("login")]
+		public string PostLogin([FromBody] User user)
+		{
+			var db = new WebApiContext();
+			var isUserValid = db.Users.FirstOrDefault(x => x.userName == user.userName && x.userPassword == user.userPassword);
+			if (isUserValid!=null)
+			{
+				return "Giriş Yapıldı.";
+			}
+			return "Kullanıcı adı veya şifre yanlış.";
 		}
 
 		// PUT api/values/5

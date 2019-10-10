@@ -7,7 +7,7 @@ namespace BankAppCoreWebApi
 {
 	public class BaseEntity
 	{
-		public DateTime CreatedDate { get; set; }
-		public DateTime UpdateDate { get; set; }
+		public DateTime createdDate { get; set; }
+		public DateTime updatedDate { get; set; }
 	}
 }
