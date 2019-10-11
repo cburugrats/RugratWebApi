@@ -48,16 +48,16 @@ class UserController extends Controller
     public function userRegisterControllerPost(Request $request){
 
         //API Url
-        $url = 'asd';
+        $url = 'https://localhost:44329/api/user/register';
  
         //Initiate cURL.
         $ch = curl_init($url);
  
         //The JSON data.
         $jsonData = array(
-            'TC' => $request->input('TC'),
-            'password' => $request->input('password'),
-            'Name' => $request->input('Name'),
+            'TcIdentityKey' => $request->input('TC'),
+            'userPassword' => $request->input('password'),
+            'userName' => $request->input('Name'),
             'Surname' => $request->input('Surname'),
             'email' => $request->input('email'),
             'dateofbirth' => $request->input('dateofbirth'),
@@ -77,7 +77,8 @@ class UserController extends Controller
  
         //Execute the request
         $result = curl_exec($ch);
-        return redirect('/');
+        echo $result;
+        //return redirect('/');
     }
     
 }
