@@ -7,11 +7,11 @@ namespace BankAppCoreWebApi
 {
 	public class Customer:BaseEntity
 	{
-		public int id { get; set; }
+		public int Id { get; set; }
 		public string firstname { get; set; }
 		public string surname { get; set; }
 		public DateTime dateOfBirth { get; set; }
-		public int phoneNumber { get; set; }
+		public long phoneNumber { get; set; }
 		public string eMail { get; set; }
 	}
 }

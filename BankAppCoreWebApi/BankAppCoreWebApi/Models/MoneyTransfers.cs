@@ -7,6 +7,7 @@ namespace BankAppCoreWebApi.Models
 {
 	public class MoneyTransfers:BaseEntity
 	{
+		public int Id { get; set; }
 		public int senderAccountId { get; set; }
 		public int balanceSent { get; set; }
 		public int receiverAccountId { get; set; }

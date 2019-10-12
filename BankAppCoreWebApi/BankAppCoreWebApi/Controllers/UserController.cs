@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BankAppCoreWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAppCoreWebApi.Controllers
@@ -8,20 +9,26 @@ namespace BankAppCoreWebApi.Controllers
 	[Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    {
-		// GET api/values
+	{
+
+		#region getUsers
+
+		// GET api/user
 		[HttpGet]
 		[Route("getUsers")]
 		public IEnumerable<User> Get()
 		{
 			using (var db = new WebApiContext())
 			{
-				var temp = db.Users.ToList();
+				var temp = db.Users.ToList(); 
 				return temp;
 			}
 		}
+		#endregion
 
-		// GET api/values/5
+
+
+		// GET api/user/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<User>> GetAsync(int id)
 		{
@@ -36,15 +43,33 @@ namespace BankAppCoreWebApi.Controllers
 			return tempUser;
 		}
 
-		// POST api/values
+		// POST api/user
 		[HttpPost]
 		[Route("register")]
-		public int PostRegister([FromBody] User user)
+		public int PostRegister([FromBody] Register registerModel)
 		{
 			var db = new WebApiContext();
+			Customer customer = new Customer() ;
+			customer.firstname = registerModel.firstname;
+			customer.surname = registerModel.surname;
+			customer.dateOfBirth = registerModel.dateOfBirth;
+			customer.phoneNumber = registerModel.phoneNumber;
+			customer.eMail = registerModel.eMail;
+			customer.createdDate = registerModel.createdDate;
+			customer.updatedDate = registerModel.updatedDate;
 			try
 			{
-				db.Add(user);
+				db.Customers.Add(customer);
+				db.SaveChanges();
+				int customerId = customer.Id;
+				User user = new User();
+				user.TcIdentityKey = registerModel.TcIdentityKey;
+				user.updatedDate = registerModel.updatedDate;
+				user.createdDate = registerModel.createdDate;
+				user.customerId = customerId;
+				user.userName = registerModel.userName;
+				user.userPassword = registerModel.userPassword;
+				db.Users.Add(user);
 				db.SaveChanges();
 			}
 			catch (System.Exception)
@@ -68,16 +93,18 @@ namespace BankAppCoreWebApi.Controllers
 			return null;
 		}
 
-		// PUT api/values/5
+		// PUT api/user/5
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody] string value)
 		{
+
 		}
 
 		// DELETE api/values/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
+
 		}
 	}
 }

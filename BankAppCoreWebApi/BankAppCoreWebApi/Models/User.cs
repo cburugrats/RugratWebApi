@@ -9,6 +9,7 @@ namespace BankAppCoreWebApi
 	{
 		public int Id { get; set; }
 		public long TcIdentityKey { get; set; }
+		public int customerId { get; set; }
 		public string userName { get; set; }
 		public string userPassword { get; set; }
 	}

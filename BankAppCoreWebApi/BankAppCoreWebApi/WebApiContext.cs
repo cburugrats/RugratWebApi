@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BankAppCoreWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankAppCoreWebApi
@@ -10,6 +11,8 @@ namespace BankAppCoreWebApi
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Customer> Customers{ get; set; }
+		public DbSet<Account> Accounts { get; set; }
+		public DbSet<MoneyTransfers> MoneyTransfers { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

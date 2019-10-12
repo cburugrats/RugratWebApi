@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BankAppCoreWebApi.Models
 {
-	public class Register
+	public class Register:BaseEntity
 	{
 		public long TcIdentityKey { get; set; }
 		public string userName { get; set; }
@@ -13,7 +13,7 @@ namespace BankAppCoreWebApi.Models
 		public string firstname { get; set; }
 		public string surname { get; set; }
 		public DateTime dateOfBirth { get; set; }
-		public int phoneNumber { get; set; }
+		public long phoneNumber { get; set; }
 		public string eMail { get; set; }
 	}
 }
