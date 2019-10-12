@@ -26,8 +26,7 @@ namespace BankAppCoreWebApi.Controllers
 		}
 		#endregion
 
-
-
+		#region GetUserById
 		// GET api/user/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<User>> GetAsync(int id)
@@ -41,15 +40,17 @@ namespace BankAppCoreWebApi.Controllers
 			}
 
 			return tempUser;
-		}
+		} 
+		#endregion
 
+		#region Register
 		// POST api/user
 		[HttpPost]
 		[Route("register")]
 		public int PostRegister([FromBody] Register registerModel)
 		{
 			var db = new WebApiContext();
-			Customer customer = new Customer() ;
+			Customer customer = new Customer();
 			customer.firstname = registerModel.firstname;
 			customer.surname = registerModel.surname;
 			customer.dateOfBirth = registerModel.dateOfBirth;
@@ -78,33 +79,40 @@ namespace BankAppCoreWebApi.Controllers
 			}
 			return 1;
 		}
+		#endregion
 
+		#region Login
 		[HttpPost]
 		[Route("login")]
 		public User PostLogin([FromBody] User user)
 		{
 			var db = new WebApiContext();
 			var isUserValid = db.Users.FirstOrDefault(x => x.userName == user.userName && x.userPassword == user.userPassword);
-			
-			if (isUserValid!=null)
+
+			if (isUserValid != null)
 			{
 				return isUserValid;
 			}
 			return null;
 		}
+		#endregion
 
+		#region HttpPut
 		// PUT api/user/5
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody] string value)
 		{
 
 		}
+		#endregion
 
+		#region Delete
 		// DELETE api/values/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
 
-		}
+		} 
+		#endregion
 	}
 }
