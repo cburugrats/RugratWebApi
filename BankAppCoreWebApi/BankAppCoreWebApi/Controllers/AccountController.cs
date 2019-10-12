@@ -54,15 +54,20 @@ namespace BankAppCoreWebApi.Controllers
 		{
 			using (var db = new WebApiContext())
 			{
-				try
+				account.createdDate = DateTime.Now;
+				account.updatedDate = DateTime.Now;
+				Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == account.customerId);
+				if (tempAccount != null)
 				{
-					db.Accounts.Add(account);
-					db.SaveChanges();
+					account.accountNo = (Convert.ToInt64(tempAccount.accountNo) + 1).ToString();
 				}
-				catch (Exception)
+				else
 				{
-					return 0;
+					User user = db.Users.FirstOrDefault(x => x.customerId == account.customerId);
+					account.accountNo = user.TcIdentityKey.ToString() + 1001;
 				}
+				db.Accounts.Add(account);
+				db.SaveChanges();
 			}
 			return 1;
 		}
@@ -76,9 +81,22 @@ namespace BankAppCoreWebApi.Controllers
 
 		// DELETE api/values/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public int Delete(int id)
 		{
-
+			using (var db = new WebApiContext())
+			{
+				try
+				{
+					var tempAccount = db.Accounts.FirstOrDefault(x => x.Id == id);
+					tempAccount.status = false;
+					db.SaveChanges();
+				}
+				catch (Exception)
+				{
+					return 0;
+				}
+				return 1;
+			}
 		}
 	}
 }
