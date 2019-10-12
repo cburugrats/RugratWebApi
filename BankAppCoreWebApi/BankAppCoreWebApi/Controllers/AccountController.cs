@@ -14,7 +14,6 @@ namespace BankAppCoreWebApi.Controllers
 	[ApiController]
 	public class AccountController : ControllerBase
 	{
-
 		#region getAccounts
 
 		// GET api/user
@@ -81,7 +80,7 @@ namespace BankAppCoreWebApi.Controllers
 
 		// DELETE api/values/5
 		[HttpDelete("{id}")]
-		public int Delete(int id)
+		public int CloseAccount(int id)
 		{
 			using (var db = new WebApiContext())
 			{
