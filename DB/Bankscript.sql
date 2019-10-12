@@ -8,7 +8,7 @@ GO
 CREATE TABLE [dbo].[Accounts](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[customerId] [int] NOT NULL,
-	[accountNo] [nvarchar(50)] NOT NULL,	    
+	[accountId] [nvarchar(50)] NOT NULL,	    
 	[balance] [money] NOT NULL,
 	[blockageAmount] [money] NOT NULL,
 	[netBalance] [money] NOT NULL,
