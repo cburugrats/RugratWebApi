@@ -1,4 +1,4 @@
-﻿USE deneme4
+﻿USE RugratsDb
 GO
 /****** Object:  Table [dbo].[Acconunts]    Script Date: 9.10.2019 13:24:38 ******/
 SET ANSI_NULLS ON
@@ -74,7 +74,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Users](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
-	[TcIdentityKey] [bigint] NOT NULL,
+	[TcIdentityKey] [bigint] NOT NULL UNIQUE,
 	[customerId] [int] NOT NULL,
 	[userName] [nvarchar](20) NOT NULL,
 	[userPassword] [nvarchar](20) NOT NULL,
