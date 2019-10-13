@@ -1,4 +1,4 @@
-﻿USE RugratsDb
+﻿USE deneme4
 GO
 /****** Object:  Table [dbo].[Acconunts]    Script Date: 9.10.2019 13:24:38 ******/
 SET ANSI_NULLS ON
@@ -8,7 +8,7 @@ GO
 CREATE TABLE [dbo].[Accounts](
 	[Id] [int] IDENTITY(1, 1) NOT NULL,
 	[customerId] [int] NOT NULL,
-	[accountNo] [nvarchar(50)] NOT NULL,	    
+	[accountNo] [nvarchar](50) NOT NULL,	    
 	[balance] [money] NOT NULL,
 	[blockageAmount] [money] NOT NULL,
 	[netBalance] [money] NOT NULL,
