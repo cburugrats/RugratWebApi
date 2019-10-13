@@ -1,4 +1,4 @@
-﻿USE deneme4
+﻿USE RugratsDb
 GO
 /****** Object:  Table [dbo].[Acconunts]    Script Date: 9.10.2019 13:24:38 ******/
 SET ANSI_NULLS ON
