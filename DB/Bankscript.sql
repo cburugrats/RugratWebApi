@@ -15,8 +15,8 @@ CREATE TABLE [dbo].[Accounts](
 	[openingDate] [datetime] NOT NULL,
 	[lastTransactionDate] [datetime] NOT NULL,
 	[status] [bit] NOT NULL,
-	[createdDate] [datetime] DEFAULT GETDATE() NOT NULL,
-	[updatedDate] [datetime] DEFAULT GETDATE() NOT NULL,
+	[createdDate] [datetime] DEFAULT GETDATE(),
+	[updatedDate] [datetime] DEFAULT GETDATE(),
  CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -36,8 +36,8 @@ CREATE TABLE [dbo].[Customers](
 	[dateofBirth] [datetime] NOT NULL,
 	[phoneNumber] [bigint] NOT NULL,
 	[eMail] [nvarchar](70) NOT NULL,
-	[createdDate] [datetime] DEFAULT GETDATE() NOT NULL,
-	[updatedDate] [datetime] DEFAULT GETDATE() NOT NULL,
+	[createdDate] [datetime] DEFAULT GETDATE(),
+	[updatedDate] [datetime] DEFAULT GETDATE(),
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -57,8 +57,8 @@ CREATE TABLE [dbo].[MoneyTransfers](
 	[receiverAccountId] [int] NOT NULL,
 	[realizationTime] [nchar](10) NOT NULL,
 	[status] [bit] NOT NULL,
-	[createdDate] [datetime] DEFAULT GETDATE() NOT NULL,
-	[updatedDate] [datetime] DEFAULT GETDATE() NOT NULL,
+	[createdDate] [datetime] DEFAULT GETDATE(),
+	[updatedDate] [datetime] DEFAULT GETDATE(),
 	[transferType] [bit] NULL,
  CONSTRAINT [PK_MoneyTransfers] PRIMARY KEY CLUSTERED 
 (
@@ -78,8 +78,8 @@ CREATE TABLE [dbo].[Users](
 	[customerId] [int] NOT NULL,
 	[userName] [nvarchar](20) NOT NULL,
 	[userPassword] [nvarchar](20) NOT NULL,
-	[createdDate] [datetime] DEFAULT GETDATE() NOT NULL,
-	[updatedDate] [datetime]  DEFAULT GETDATE() NOT NULL,
+	[createdDate] [datetime] DEFAULT GETDATE(),
+	[updatedDate] [datetime]  DEFAULT GETDATE(),
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
