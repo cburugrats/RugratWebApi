@@ -35,7 +35,7 @@ CREATE TABLE [dbo].[Customers](
 	[surname] [nvarchar](50) NOT NULL,
 	[dateofBirth] [datetime] NOT NULL,
 	[phoneNumber] [bigint] NOT NULL,
-	[eMail] [nvarchar](70) NOT NULL,
+	[eMail] [nvarchar](70) NOT NULL UNIQUE,
 	[createdDate] [datetime] DEFAULT GETDATE(),
 	[updatedDate] [datetime] DEFAULT GETDATE(),
  CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
