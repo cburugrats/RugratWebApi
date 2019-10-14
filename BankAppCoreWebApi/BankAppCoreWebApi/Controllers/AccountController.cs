@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BankAppCoreWebApi.Controllers
 {
+	/// <author>Muhammet</author>
+
+
 	[Route("api/[controller]")]
 	[ApiController]
 	public class AccountController : ControllerBase
@@ -74,6 +77,7 @@ namespace BankAppCoreWebApi.Controllers
 		}
 		#endregion
 
+		#region With Draw Money
 		[HttpPost]
 		[Route("withDrawMoney")]
 		public int WithDrawMoney([FromBody] AccountIdAndMoney drawMoney)
@@ -100,9 +104,10 @@ namespace BankAppCoreWebApi.Controllers
 				}
 			}
 			return 1;
-		}
+		} 
+		#endregion
 
-
+		#region To Deposit Money
 		[HttpPost]
 		[Route("toDepositMoney")]
 		public int toDepositMoney([FromBody] AccountIdAndMoney toDepositMoney)
@@ -129,8 +134,8 @@ namespace BankAppCoreWebApi.Controllers
 				}
 			}
 			return 1;
-		}
-		
+		} 
+		#endregion
 
 		#region HttpPut
 		// PUT api/user/5

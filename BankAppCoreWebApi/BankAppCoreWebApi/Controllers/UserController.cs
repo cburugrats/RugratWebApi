@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BankAppCoreWebApi.Models;
@@ -41,60 +42,6 @@ namespace BankAppCoreWebApi.Controllers
 
 			return tempUser;
 		} 
-		#endregion
-
-		#region Register
-		// POST api/user
-		[HttpPost]
-		[Route("register")]
-		public int PostRegister([FromBody] Register registerModel)
-		{
-			var db = new WebApiContext();
-			Customer customer = new Customer();
-			customer.firstname = registerModel.firstname;
-			customer.surname = registerModel.surname;
-			customer.dateOfBirth = registerModel.dateOfBirth;
-			customer.phoneNumber = registerModel.phoneNumber;
-			customer.eMail = registerModel.eMail;
-			customer.createdDate = registerModel.createdDate;
-			customer.updatedDate = registerModel.updatedDate;
-			try
-			{
-				db.Customers.Add(customer);
-				db.SaveChanges();
-				int customerId = customer.Id;
-				User user = new User();
-				user.TcIdentityKey = registerModel.TcIdentityKey;
-				user.updatedDate = registerModel.updatedDate;
-				user.createdDate = registerModel.createdDate;
-				user.customerId = customerId;
-				user.userName = registerModel.userName;
-				user.userPassword = registerModel.userPassword;
-				db.Users.Add(user);
-				db.SaveChanges();
-			}
-			catch (System.Exception)
-			{
-				return 0;
-			}
-			return 1;
-		}
-		#endregion
-
-		#region Login
-		[HttpPost]
-		[Route("login")]
-		public User PostLogin([FromBody] User user)
-		{
-			var db = new WebApiContext();
-			var isUserValid = db.Users.FirstOrDefault(x => x.userName == user.userName && x.userPassword == user.userPassword);
-
-			if (isUserValid != null)
-			{
-				return isUserValid;
-			}
-			return null;
-		}
 		#endregion
 
 		#region HttpPut

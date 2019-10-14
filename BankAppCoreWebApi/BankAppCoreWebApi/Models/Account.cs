@@ -13,8 +13,8 @@ namespace BankAppCoreWebApi.Models
 		public decimal balance { get; set; }
 		public decimal blockageAmount { get; set; }
 		public decimal netBalance { get; set; }
-		public DateTime openingDate { get; set; }
-		public DateTime lastTransactionDate { get; set; }
+		public DateTime? openingDate { get; set; }
+		public DateTime? lastTransactionDate { get; set; }
 		public bool status { get; set; }
 	}
 
