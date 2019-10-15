@@ -53,6 +53,11 @@ namespace RugratsWebApp.Controllers
                     // Post Request to the URI
                     HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/register", content);
                     // Check for result
+                    if (result.IsSuccessStatusCode)
+                    {
+                        result.EnsureSuccessStatusCode();
+                        string response = await result.Content.ReadAsStringAsync();
+                    }
                     return RedirectToAction("Index", "Home");
                     //return null;
                 }
