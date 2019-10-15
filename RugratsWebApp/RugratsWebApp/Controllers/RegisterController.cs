@@ -51,7 +51,7 @@ namespace RugratsWebApp.Controllers
                     var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
                     b = content.ToString();
                     // Post Request to the URI
-                    var result = await client.PostAsync("https://localhost:44329/api/register", content);
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/register", content);
                     // Check for result
                     return RedirectToAction("Index", "Home");
                     //return null;
