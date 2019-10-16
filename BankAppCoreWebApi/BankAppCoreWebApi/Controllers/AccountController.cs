@@ -39,14 +39,14 @@ namespace BankAppCoreWebApi.Controllers
 		#endregion
 
 		#region Get Account By accountId With CustomerId
-		// GET api/user/5
-		[HttpGet("getaccountbyid/{accountId}")]
-		public Account GetAccount(int accountId)
+		// GET api/getaccountbyid/5
+		[HttpGet("getaccountbyid/{accountNo}")]
+		public Account GetAccount(string accountNo)
 		{
 			using (var db = new WebApiContext())
 			{
 					Account tempAccount = null;
-					tempAccount = db.Accounts.FirstOrDefault(x => x.Id == accountId);
+					tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == accountNo);
 					if (tempAccount == null)
 					{
 						return null;//Hesap bulunamadı.
