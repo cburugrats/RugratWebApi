@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace RugratsWebApp.Controllers
 {
@@ -18,28 +20,60 @@ namespace RugratsWebApp.Controllers
 		{
 			return View();
 		}
-		public ActionResult Create()
+		public async System.Threading.Tasks.Task<ActionResult> CreateAsync()
 		{
-			return View();
+            try
+            {
+                // TODO: Add insert logic here
+                // Create a HttpClient
+                using (var client = new HttpClient())
+                {
+
+                    // Create post body object
+                    // Serialize C# object to Json Object
+                    var serializedProduct = JsonConvert.SerializeObject(User.Identity.Name);
+                    // Json object to System.Net.Http content type
+                    var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+                    // Post Request to the URI
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/account/openAnAccount", content);
+                    // Check for result
+                    if (result.IsSuccessStatusCode)
+                    {
+                        result.EnsureSuccessStatusCode();
+                        string response = await result.Content.ReadAsStringAsync();
+                        if (response == "0")
+                        {
+                            return RedirectToAction("LogOff", "Login");
+                        }
+                        else if (response == "1")
+                        {
+                            //Bilinmeyen Hata
+                            ViewBag.AccountResponse = "Succes";
+                            return RedirectToAction("List", "Account");
+                        }
+                        else
+                        {
+                            ViewBag.AccountResponse = "Unknown error occurred";
+                            return RedirectToAction("List", "Account");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.AccountResponse = "Unknown error occurred";
+                        return RedirectToAction("List", "Account");
+                    }
+                }
+            }
+            catch
+            {
+                ViewBag.AccountResponse = "Unknown error occurred";
+                return RedirectToAction("List", "Account");
+            }
 		}
 		public async System.Threading.Tasks.Task<ActionResult> List()
 		{
-			List<AccountModel> accounts = new List<AccountModel>();
-			AccountModel HesapOrnek = new AccountModel
-			{
-				Id = 1,
-				customerId = 1,
-				accountNo = "1",
-				balance = 1,
-				blockageAmount = 1,
-				netBalance = 1
 
-			};
-			HesapOrnek.status = true;
-			accounts.Add(HesapOrnek);
-			HesapOrnek.status = false;
-			accounts.Add(HesapOrnek);
-			accounts.Add(HesapOrnek);
+            List<AccountModel> accounts = new List<AccountModel>();
 			using (var client = new HttpClient())
 			{
 				System.Net.ServicePointManager.ServerCertificateValidationCallback +=
@@ -47,7 +81,7 @@ namespace RugratsWebApp.Controllers
 				{
 					return true;
 				};
-				var task = client.GetAsync("https://localhost:44329/api/account/424244")
+				var task = client.GetAsync("https://localhost:44329/api/account/"+ User.Identity.Name)
 				  .ContinueWith((taskwithresponse) =>
 				  {
 					  var response = taskwithresponse.Result;
@@ -61,7 +95,7 @@ namespace RugratsWebApp.Controllers
 
 			return View(accounts);
 		}
-		public ActionResult Details()
+		public ActionResult Details(int AccountNo)
 		{
 			return View();
 		}

@@ -50,12 +50,12 @@ namespace RugratsWebApp.Controllers
                         {
                             result.EnsureSuccessStatusCode();
                             string response = await result.Content.ReadAsStringAsync();
-                            if (response == "0")
+                            if (response == "1")
                             {
                                 FormsAuthentication.SetAuthCookie(collection.TcIdentityKey, true);
                                 return RedirectToAction("Index", "Home");
                             }
-                            else if (response == "1")
+                            else if (response == "0")
                             {
                                 //Bilinmeyen Hata
                                 ViewBag.LoginResponse = "You entered incorrect password or TC";
