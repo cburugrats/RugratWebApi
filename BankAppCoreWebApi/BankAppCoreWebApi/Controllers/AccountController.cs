@@ -67,26 +67,41 @@ namespace BankAppCoreWebApi.Controllers
 		// POST api/user
 		[HttpPost]
 		[Route("openAnAccount")]
-		public int PostRegister([FromBody] Account account)
+		public int PostRegister([FromBody] int TcIdentityKey)
 		{
 			using (var db = new WebApiContext())
 			{
-				account.createdDate = DateTime.Now;
-				account.updatedDate = DateTime.Now;
-				Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == account.customerId);//Müşterinin son açtığı hesabı al.
-				if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
+				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
+				if (tempUser != null)
 				{
-					account.accountNo = (Convert.ToInt64(tempAccount.accountNo) + 1).ToString();//Son açtığı hesap numarasının üzerine +1 ekle.
+					Account account = new Account();
+					account.balance = 0;
+					account.blockageAmount = 0;
+					account.netBalance = 0;
+					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId);//Müşterinin son açtığı hesabı al.
+					if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
+					{
+						account.accountNo = (Convert.ToInt64(tempAccount.accountNo) + 1).ToString();//Son açtığı hesap numarasının üzerine +1 ekle.
+					}
+					else
+					{
+						account.accountNo = tempUser.TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
+					}
+					try
+					{
+						db.Accounts.Add(account);
+						db.SaveChanges();
+					}
+					catch (Exception)
+					{
+						return 2;//Veritabanına kaydedilemedi!
+					}
+					
+					return 1;//Hesap başarıyla açıldı.
 				}
 				else
-				{
-					User user = db.Users.FirstOrDefault(x => x.customerId == account.customerId);//Müşterinin kullanıcı id'sini bul.
-					account.accountNo = user.TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
-				}
-				db.Accounts.Add(account);
-				db.SaveChanges();
+					return 0;//Bu tcno ile kayıtlı kullanıcı bulunamadı!
 			}
-			return 1;
 		}
 		#endregion
 
