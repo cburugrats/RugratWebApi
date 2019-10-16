@@ -108,11 +108,11 @@ namespace BankAppCoreWebApi.Controllers
 		#region With Draw Money
 		[HttpPost]
 		[Route("withDrawMoney")]
-		public int WithDrawMoney([FromBody] AccountIdAndMoney drawMoney)
+		public int WithDrawMoney([FromBody] AccountNoAndMoney drawMoney)
 		{
 			using (var db = new WebApiContext())
 			{
-				Account tempAccount = db.Accounts.FirstOrDefault(x => x.Id == drawMoney.Id);//Hesabı bul.
+				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == drawMoney.accountNo);//Hesabı bul.
 				if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
 				{
 					return 0;
@@ -145,11 +145,11 @@ namespace BankAppCoreWebApi.Controllers
 		#region To Deposit Money
 		[HttpPost]
 		[Route("toDepositMoney")]
-		public int toDepositMoney([FromBody] AccountIdAndMoney toDepositMoney)
+		public int toDepositMoney([FromBody] AccountNoAndMoney toDepositMoney)
 		{
 			using (var db = new WebApiContext())
 			{
-				Account tempAccount = db.Accounts.FirstOrDefault(x => x.Id == toDepositMoney.Id);//Hesabı bul.
+				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == toDepositMoney.accountNo);//Hesabı bul.
 				if (tempAccount == null)
 				{
 					return 0;//Böyle bir hesap bulunamadı.

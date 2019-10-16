@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BankAppCoreWebApi.Models
 {
-	public class AccountIdAndMoney
+	public class AccountNoAndMoney
 	{
-		public int Id { get; set; }
+		public string accountNo { get; set; }
 		public decimal Balance { get; set; }
 	}
 }
