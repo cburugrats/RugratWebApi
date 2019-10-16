@@ -125,7 +125,14 @@ namespace BankAppCoreWebApi.Controllers
 				}
 				else
 				{
-					tempAccount.balance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
+					if (tempAccount.balance<drawMoney.Balance)
+					{
+						return 2;//Hesapta yeterli para yok.
+					}
+					else
+					{
+						tempAccount.balance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
+					}
 				}
 				try
 				{
@@ -134,10 +141,10 @@ namespace BankAppCoreWebApi.Controllers
 				catch (Exception)
 				{
 
-					return 0;
+					return 0;//Veritabanına kaydedilirken hata oluştu!
 				}
 			}
-			return 1;
+			return 1;//Para başarıyla çekildi.
 		} 
 		#endregion
 
@@ -149,9 +156,9 @@ namespace BankAppCoreWebApi.Controllers
 			using (var db = new WebApiContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.Id == toDepositMoney.Id);//Hesabı bul.
-				if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
+				if (tempAccount == null)
 				{
-					return 0;
+					return 0;//Böyle bir hesap bulunamadı.
 				}
 				else
 				{
@@ -164,10 +171,10 @@ namespace BankAppCoreWebApi.Controllers
 				catch (Exception)
 				{
 
-					return 0;
+					return 0;//Veritabanına kaydedilirken hata oluştu!
 				}
 			}
-			return 1;
+			return 1;//Para başarıyla yatırıldı.
 		} 
 		#endregion
 
