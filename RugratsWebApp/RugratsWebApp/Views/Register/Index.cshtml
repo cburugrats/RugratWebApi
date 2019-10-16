@@ -67,28 +67,28 @@
                         <label for="TcIdentityKey" class="col-sm-3 col-form-label">TC</label>
 
                         <div class="col-sm-9">
-                            <input type="number"  onkeypress="return this.value.length<=10" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" maxlength="15" required>
+                            <input type="number"  onkeypress="return this.value.length<=10" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="eMail" class="col-sm-3 col-form-label">Email</label>
 
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="eMail" name="eMail" placeholder="Email" maxlength="15" required>
+                            <input type="email" class="form-control" id="eMail" name="eMail" placeholder="Email" maxlength="25" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber" class="col-sm-3 col-form-label">Phone</label>
 
                         <div class="col-sm-9">
-                            <input type="number" onkeypress="return this.value.length<=10" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" maxlength="15" required>
+                            <input type="number" onkeypress="return this.value.length<=14" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="dateOfBirth" class="col-sm-3 col-form-label">Birthday</label>
 
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birtday" required>
+                            <input type="date" value="2019-10-16" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birtday" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -120,6 +120,48 @@
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' /* optional */
+            });
+        });
+
+        $(function () {
+            $('#firstname').keydown(function (e) {
+
+                if (e.shiftKey || e.ctrlKey || e.altKey) {
+
+                    e.preventDefault();
+
+                } else {
+
+                    var key = e.keyCode;
+
+                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+
+                        e.preventDefault();
+
+                    }
+
+                }
+
+            });
+        });
+
+        $(function () {
+            $('#surname').keydown(function (e) {
+
+                if (e.shiftKey || e.ctrlKey || e.altKey) {
+
+                    e.preventDefault();
+
+                } else {
+
+                    var key = e.keyCode;
+
+                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+
+                        e.preventDefault();
+                    }
+                }
+
             });
         });
     </script>
