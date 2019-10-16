@@ -14,16 +14,16 @@ namespace BankAppCoreWebApi.Controllers
 		#region Login
 		// POST api/login
 		[HttpPost]
-		public User PostLogin([FromBody] User user)
+		public int PostLogin([FromBody] User user)
 		{
 			var db = new WebApiContext();
 			var isUserValid = db.Users.FirstOrDefault(x => x.TcIdentityKey == user.TcIdentityKey && x.userPassword == user.userPassword);
 
 			if (isUserValid != null)
 			{
-				return isUserValid;
+				return 0;
 			}
-			return null;
+			return 1;
 		}
 		#endregion
 	}
