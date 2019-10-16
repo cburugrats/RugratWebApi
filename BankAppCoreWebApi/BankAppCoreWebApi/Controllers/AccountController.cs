@@ -83,6 +83,7 @@ namespace BankAppCoreWebApi.Controllers
 					account.openingDate = DateTime.Now;
 					account.updatedDate = DateTime.Now;
 					account.customerId = tempUser.customerId;
+					account.status = true;
 					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId);//Müşterinin son açtığı hesabı al.
 					if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
 					{
@@ -181,7 +182,8 @@ namespace BankAppCoreWebApi.Controllers
 
 		#region Close Account By AccountId
 		// DELETE api/values/5
-		[HttpDelete("{id}")]
+		[HttpGet]
+		[Route("closeAccount/{id}")]
 		public int CloseAccount(int id)
 		{
 			using (var db = new WebApiContext())
@@ -194,9 +196,9 @@ namespace BankAppCoreWebApi.Controllers
 				}
 				catch (Exception)
 				{
-					return 0;
+					return 0;//Hata oluştu.
 				}
-				return 1;
+				return 1;//Başarıyla kapatıldı.
 			}
 		} 
 		#endregion
