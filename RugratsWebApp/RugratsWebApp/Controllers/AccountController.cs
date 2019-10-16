@@ -95,9 +95,29 @@ namespace RugratsWebApp.Controllers
 
 			return View(accounts);
 		}
-		public ActionResult Details(int AccountNo)
+        [HttpPost]
+		public ActionResult Delete(string AccountNo)
 		{
-			return View();
-		}
+            List<AccountModel> accounts = new List<AccountModel>();
+            using (var client = new HttpClient())
+            {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                (se, cert, chain, sslerror) =>
+                {
+                    return true;
+                };
+                var task = client.GetAsync("https://localhost:44329/api/account/closeAccount/" + AccountNo)
+                  .ContinueWith((taskwithresponse) =>
+                  {
+                      var response = taskwithresponse.Result;
+                      var jsonString = response.Content.ReadAsStringAsync();
+                      jsonString.Wait();
+
+                  });
+                task.Wait();
+            }
+
+            return RedirectToAction("List", "Account");
+        }
 	}
 }

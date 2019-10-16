@@ -13,10 +13,10 @@ using System.Web.Security;
 
 namespace RugratsWebApp.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         // GET: Login
-        [AllowAnonymous]
         public ActionResult Index()
         {
             if (String.IsNullOrEmpty(HttpContext.User.Identity.Name))

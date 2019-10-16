@@ -42,6 +42,9 @@
                             <th>
                                 Last Transaction Date
                             </th>
+                            <th>
+                                Accoun Close
+                            </th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -68,12 +71,15 @@
                                     @Html.DisplayFor(modelItem => item.lastTransactionDate)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.status)
+                                    <form action="/Account/Delete" method="post">
+                                        <input type="hidden" name="AccountNo" value="@item.accountNo" />
+                                        <button type="submit" class="btn btn-block btn-danger btn-xs">Close This Account</button>
+                                    </form>
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Edit", "Edit/", new { /* id=item.PrimaryKey */ }) |
                                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                    @Html.ActionLink("Delete", "Delete/"+item.accountNo, new { /* id=item.PrimaryKey */ })
                                 </td>
                             </tr>
                         }

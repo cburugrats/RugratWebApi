@@ -7,16 +7,22 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace RugratsWebApp.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         // GET: Register
         public ActionResult Index()
         {
-            ViewBag.RegisterResponse = null;
-            return View();
+            if (String.IsNullOrEmpty(HttpContext.User.Identity.Name))
+            {
+                FormsAuthentication.SignOut();
+                return View();
+            }
+            return Redirect("/Home");
         }
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync(FormCollection collection)
