@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RugratsWebApp.Models;
+using RugratsWebApp.Models.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace RugratsWebApp.Controllers
 {
-	public class AccountController : Controller
+    [_SessionController]
+    public class AccountController : Controller
 	{
 		// GET: Account
 		public ActionResult Index()

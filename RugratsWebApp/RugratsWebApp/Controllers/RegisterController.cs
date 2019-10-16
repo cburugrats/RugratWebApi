@@ -15,15 +15,12 @@ namespace RugratsWebApp.Controllers
         // GET: Register
         public ActionResult Index()
         {
+            ViewBag.RegisterResponse = null;
             return View();
         }
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync(FormCollection collection)
         {
-            //return RedirectToAction("Index","Register");
-            string b;
-            var a = collection["TcIdentityKey"];
-
             RegisterModel nRegister = new RegisterModel
             {
                 TcIdentityKey = Int64.Parse(collection["TcIdentityKey"].ToString()),
@@ -48,7 +45,6 @@ namespace RugratsWebApp.Controllers
                     var serializedProduct = JsonConvert.SerializeObject(nRegister);
                     // Json object to System.Net.Http content type
                     var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
-                    b = content.ToString();
                     // Post Request to the URI
                     HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/register", content);
                     // Check for result
