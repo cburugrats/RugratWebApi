@@ -119,9 +119,9 @@ namespace BankAppCoreWebApi.Controllers
 			using (var db = new WebApiContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.Id == drawMoney.Id);//Hesabı bul.
-				if (tempAccount == null)
+				if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
 				{
-					return 0;//Böyle bir hesap bulunamadı.
+					return 0;
 				}
 				else
 				{
