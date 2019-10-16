@@ -40,6 +40,16 @@
             <div class="login-box-body">
 
                 <form action="\Login" method="post">
+                    @{
+                        if (!string.IsNullOrEmpty(ViewBag.LoginResponse))
+                        {
+                            <div class="alert alert-danger alert-dismissible">
+                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                @ViewBag.LoginResponse
+                            </div>
+                            <hr />
+                        }
+                    }
                     <div class="form-group has-feedback">
 
                         <input Name="TcIdentityKey" type="number" class="form-control" placeholder="TC" required>
