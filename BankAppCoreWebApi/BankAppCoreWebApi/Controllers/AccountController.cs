@@ -21,13 +21,19 @@ namespace BankAppCoreWebApi.Controllers
 
 		// GET api/user
 		[HttpGet]
-		[Route("{customerId}")]
-		public IEnumerable<Account> Get(int customerId)
+		[Route("{TcIdentityKey}")]
+		public IEnumerable<Account> Get(long TcIdentityKey)
 		{
 			using (var db = new WebApiContext())
-			{
-				var temp = db.Accounts.Where(x => x.customerId == customerId && x.status==true).ToList();//Sadece aktif olan hesapların listesini alıyor.
-				return temp;
+			{			
+				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
+				if (tempUser != null)
+				{
+					var temp = db.Accounts.Where(x => x.customerId == tempUser.customerId && x.status == true).ToList();//Sadece aktif olan hesapların listesini alıyor.				}
+					return temp;
+				}
+				else
+					return null;
 			}
 		}
 		#endregion
