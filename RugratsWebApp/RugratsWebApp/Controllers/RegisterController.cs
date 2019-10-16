@@ -20,7 +20,6 @@ namespace RugratsWebApp.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync(FormCollection collection)
         {
-            ViewBag.deneme = collection["firstname"].ToString();
             //return RedirectToAction("Index","Register");
             string b;
             var a = collection["TcIdentityKey"];
@@ -57,9 +56,26 @@ namespace RugratsWebApp.Controllers
                     {
                         result.EnsureSuccessStatusCode();
                         string response = await result.Content.ReadAsStringAsync();
+                        if (response =="2")
+                        {
+                            //Aynı Mail Mevcut
+                            ViewBag.RegisterResponse = "Sign up with the same mail. Please try a different email address.";
+                            return View("Index");
+                        }
+                        else if (response=="3")
+                        {
+                            //Aynı TC Mevcut
+                            ViewBag.RegisterResponse = "Registered with the same TC. please try a different TC.";
+                            return View("Index");
+                        }
+                        else if (response=="0")
+                        {
+                            //Bilinmeyen Hata
+                            ViewBag.RegisterResponse = "Unknown error occurred";
+                            return View("Index");
+                        }
                     }
                     return RedirectToAction("Index", "Home");
-                    //return null;
                 }
             }
             catch
