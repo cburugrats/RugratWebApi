@@ -41,17 +41,24 @@ namespace BankAppCoreWebApi.Controllers
 		#region Get Account By accountId With CustomerId
 		// GET api/user/5
 		[HttpGet("{customerId}/{accountId}")]
-		public Account GetAccount(int customerId, int accountId)
+		public Account GetAccount(long TcIdentityKey, int accountId)
 		{
 			using (var db = new WebApiContext())
 			{
-				Account tempAccount = null;
-				tempAccount = db.Accounts.FirstOrDefault(x => x.Id == accountId && x.customerId == customerId);
-				if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
+				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
+				if (tempUser != null)
 				{
-					return null;
+					Account tempAccount = null;
+					tempAccount = db.Accounts.FirstOrDefault(x => x.Id == accountId && x.customerId == tempUser.customerId);
+					if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
+					{
+						return null;
+					}
+					else
+						return tempAccount;
 				}
-				return tempAccount;
+				else
+					return null;
 			}
 		}
 		#endregion 
