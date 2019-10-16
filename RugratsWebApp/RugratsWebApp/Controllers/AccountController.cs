@@ -16,10 +16,6 @@ namespace RugratsWebApp.Controllers
     public class AccountController : Controller
 	{
 		// GET: Account
-		public ActionResult Index()
-		{
-			return View();
-		}
 		public async System.Threading.Tasks.Task<ActionResult> CreateAsync()
 		{
             try
@@ -72,7 +68,10 @@ namespace RugratsWebApp.Controllers
 		}
 		public async System.Threading.Tasks.Task<ActionResult> List()
 		{
-
+            if (string.IsNullOrEmpty(User.Identity.Name))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             List<AccountModel> accounts = new List<AccountModel>();
 			using (var client = new HttpClient())
 			{
