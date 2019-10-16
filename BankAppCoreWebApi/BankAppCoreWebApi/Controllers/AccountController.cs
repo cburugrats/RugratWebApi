@@ -82,6 +82,7 @@ namespace BankAppCoreWebApi.Controllers
 					account.lastTransactionDate = DateTime.Now;
 					account.openingDate = DateTime.Now;
 					account.updatedDate = DateTime.Now;
+					account.customerId = tempUser.customerId;
 					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId);//Müşterinin son açtığı hesabı al.
 					if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
 					{
