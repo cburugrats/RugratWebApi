@@ -119,13 +119,14 @@ namespace BankAppCoreWebApi.Controllers
 				}
 				else
 				{
-					if (tempAccount.balance<drawMoney.Balance)
+					if (tempAccount.netBalance<drawMoney.Balance)
 					{
 						return 2;//Hesapta yeterli para yok.
 					}
 					else
 					{
 						tempAccount.balance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
+						tempAccount.netBalance -= drawMoney.Balance;
 					}
 				}
 				try
@@ -157,6 +158,7 @@ namespace BankAppCoreWebApi.Controllers
 				else
 				{
 					tempAccount.balance += toDepositMoney.Balance;//Hesaba {balance} kadar para yatır.
+					tempAccount.netBalance += toDepositMoney.Balance;
 				}
 				try
 				{
@@ -181,7 +183,7 @@ namespace BankAppCoreWebApi.Controllers
 		}
 		#endregion
 
-		#region Close Account By AccountId
+		#region Close Account By AccountNo
 		// DELETE api/values/5
 		[HttpGet]
 		[Route("closeAccount/{AccountNo}")]
