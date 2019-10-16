@@ -84,14 +84,14 @@ namespace BankAppCoreWebApi.Controllers
 					account.updatedDate = DateTime.Now;
 					account.customerId = tempUser.customerId;
 					account.status = true;
-					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId);//Müşterinin son açtığı hesabı al.
+					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId && x.status==true);//Müşterinin son açtığı hesabı al.
 					if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
 					{
 						account.accountNo = (Convert.ToInt64(tempAccount.accountNo) + 1).ToString();//Son açtığı hesap numarasının üzerine +1 ekle.
 					}
 					else
 					{
-						account.accountNo = tempUser.TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
+						account.accountNo = TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
 					}
 					try
 					{
@@ -183,14 +183,14 @@ namespace BankAppCoreWebApi.Controllers
 		#region Close Account By AccountId
 		// DELETE api/values/5
 		[HttpGet]
-		[Route("closeAccount/{id}")]
-		public int CloseAccount(int id)
+		[Route("closeAccount/{AccountNo}")]
+		public int CloseAccount(string AccountNo)
 		{
 			using (var db = new WebApiContext())
 			{
 				try
 				{
-					var tempAccount = db.Accounts.FirstOrDefault(x => x.Id == id);//İstenen id'ye sahip hesabı bul.
+					var tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
 					tempAccount.status = false;//Hesabı pasif hale getir.
 					db.SaveChanges();
 				}
