@@ -84,7 +84,7 @@ namespace BankAppCoreWebApi.Controllers
 					account.updatedDate = DateTime.Now;
 					account.customerId = tempUser.customerId;
 					account.status = true;
-					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId && x.status==true);//Müşterinin son açtığı hesabı al.
+					Account tempAccount = db.Accounts.OrderByDescending(p => p.createdDate).FirstOrDefault(x => x.customerId == tempUser.customerId);//Müşterinin son açtığı hesabı al.
 					if (tempAccount != null)//Eğer müşterinin var olan en az bir hesabı varsa.
 					{
 						account.accountNo = (Convert.ToInt64(tempAccount.accountNo) + 1).ToString();//Son açtığı hesap numarasının üzerine +1 ekle.
