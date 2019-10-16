@@ -53,35 +53,35 @@
                         <label for="firstname" class="col-sm-3 col-form-label">Firstname</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname" required>
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="surname" class="col-sm-3 col-form-label">Surname</label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required>
+                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="TcIdentityKey" class="col-sm-3 col-form-label">TC</label>
 
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" required>
+                            <input type="number"  onkeypress="return this.value.length<=10" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="eMail" class="col-sm-3 col-form-label">Email</label>
 
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="eMail" name="eMail" placeholder="Email" required>
+                            <input type="email" class="form-control" id="eMail" name="eMail" placeholder="Email" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber" class="col-sm-3 col-form-label">Phone</label>
 
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" required>
+                            <input type="number" onkeypress="return this.value.length<=10" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -95,7 +95,7 @@
                         <label for="userPassword" class="col-sm-3 col-form-label">Password</label>
 
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Password" required>
+                            <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Password" maxlength="15" required>
                         </div>
                     </div>
                     <div class="box-footer">
@@ -122,6 +122,29 @@
                 increaseArea: '20%' /* optional */
             });
         });
+
+        function tckimlikkontorolu(tcno)
+        {
+              var tckontrol,toplam;
+                tckontrol = tcno;
+             tcno = tcno.value;
+             toplam = Number(tcno.substring(0,1)) + Number(tcno.substring(1,2)) + Number(tcno.substring(2,3)) + Number(tcno.substring(3,4)) + Number(tcno.substring(4,5)) + Number(tcno.substring(5,6)) + Number(tcno.substring(6,7)) + Number(tcno.substring(7,8)) + Number(tcno.substring(8,9)) + Number(tcno.substring(9,10));
+
+             strtoplam = String(toplam);
+
+             onunbirlerbas = strtoplam.substring(strtoplam.length, strtoplam.length-1);
+            var sonuc = ge("sonuc");
+
+          if(onunbirlerbas == tcno.substring(10,11))
+          {
+              sonuc.className = "dogru";
+              sonuc.innerHTML  = "Doğru";
+             }
+             else{
+             sonuc.className = " ";
+             sonuc.innerHTML  = "Yanlış";
+             }
+           }
     </script>
 
 </body>

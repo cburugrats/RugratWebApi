@@ -52,11 +52,11 @@
                     }
                     <div class="form-group has-feedback">
 
-                        <input Name="TcIdentityKey" type="number" class="form-control" placeholder="TC" required>
+                        <input Name="TcIdentityKey" onkeypress="return this.value.length<=10" type="number" class="form-control" placeholder="TC" maxlength="15" required>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input name="userPassword" type="password" class="form-control" placeholder="Password" required>
+                        <input name="userPassword" type="password" class="form-control" placeholder="Password" maxlength="15" required>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">
