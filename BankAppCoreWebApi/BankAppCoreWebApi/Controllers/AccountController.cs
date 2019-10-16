@@ -40,7 +40,7 @@ namespace BankAppCoreWebApi.Controllers
 
 		#region Get Account By accountId With CustomerId
 		// GET api/user/5
-		[HttpGet("{accountId}")]
+		[HttpGet("getaccountbyid/{accountId}")]
 		public Account GetAccount(int accountId)
 		{
 			using (var db = new WebApiContext())
