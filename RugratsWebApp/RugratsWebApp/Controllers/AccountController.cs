@@ -16,6 +16,7 @@ namespace RugratsWebApp.Controllers
         }
         public ActionResult Create()
         {
+
             return View();
         }
         public ActionResult List()
