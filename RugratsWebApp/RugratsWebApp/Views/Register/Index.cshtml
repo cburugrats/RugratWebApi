@@ -48,6 +48,14 @@
                     <span style="display:block;text-align:center;"><h4>Register</h4></span>
 
                     <hr />
+                    @if (!string.IsNullOrEmpty(ViewBag.RegisterResponse))
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @ViewBag.RegisterResponse
+                        </div>
+                        <hr/>
+                    }
 
                     <div class="form-group">
                         <label for="firstname" class="col-sm-3 col-form-label">Firstname</label>
@@ -67,7 +75,7 @@
                         <label for="TcIdentityKey" class="col-sm-3 col-form-label">TC</label>
 
                         <div class="col-sm-9">
-                            <input type="number"  onkeypress="return this.value.length<=10" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" required>
+                            <input type="number" class="form-control" id="TcIdentityKey" name="TcIdentityKey" placeholder="TC" min="10000000000" max="99999999999" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +89,7 @@
                         <label for="phoneNumber" class="col-sm-3 col-form-label">Phone</label>
 
                         <div class="col-sm-9">
-                            <input type="number" onkeypress="return this.value.length<=14" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" required>
+                            <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,7 +115,12 @@
         </div>
         <!-- /.form-box -->
     </div>
-    <!-- /.register-box -->
+    <!-- /.register-box -->,
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+            crossorigin="anonymous">
+    </script>
+    <script src="jquery-input-mask-phone-number.js"></script>
     <!-- jQuery 3 -->
     <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -123,47 +136,15 @@
             });
         });
 
+        $(":input").inputmask();
         $(function () {
-            $('#firstname').keydown(function (e) {
 
-                if (e.shiftKey || e.ctrlKey || e.altKey) {
-
-                    e.preventDefault();
-
-                } else {
-
-                    var key = e.keyCode;
-
-                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
-
-                        e.preventDefault();
-
-                    }
-
-                }
-
+            $('#phoneNumber').usPhoneFormat({
+                format: '(xxx) xxx-xxxx'
             });
+
         });
 
-        $(function () {
-            $('#surname').keydown(function (e) {
-
-                if (e.shiftKey || e.ctrlKey || e.altKey) {
-
-                    e.preventDefault();
-
-                } else {
-
-                    var key = e.keyCode;
-
-                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
-
-                        e.preventDefault();
-                    }
-                }
-
-            });
-        });
     </script>
 
 </body>
