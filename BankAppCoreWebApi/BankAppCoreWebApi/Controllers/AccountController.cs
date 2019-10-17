@@ -18,8 +18,7 @@ namespace BankAppCoreWebApi.Controllers
 	public class AccountController : ControllerBase
 	{
 		#region getAccounts
-
-		// GET api/user
+		
 		[HttpGet]
 		[Route("{TcIdentityKey}")]
 		public IEnumerable<Account> Get(long TcIdentityKey)
@@ -40,7 +39,7 @@ namespace BankAppCoreWebApi.Controllers
 
 		#region Get Account By accountId With CustomerId
 		// GET api/getaccountbyid/5
-		[HttpGet("getaccountbyid/{accountNo}")]
+		[HttpGet("getaccountbyNo/{accountNo}")]
 		public Account GetAccount(string accountNo)
 		{
 			using (var db = new WebApiContext())
@@ -55,17 +54,17 @@ namespace BankAppCoreWebApi.Controllers
 						return tempAccount;
 			}
 		}
-		#endregion 
+		#endregion
 
 		#region Open An Account
 		// POST api/user
 		[HttpPost]
-		[Route("openAnAccount")]
-		public int PostRegister([FromBody] int TcIdentityKey)
+		[Route("openAnAccount")]		
+		public int PostRegister([FromBody] TcIdentityKeyModel tcIdentityKeyModel)
 		{
 			using (var db = new WebApiContext())
 			{
-				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
+				User tempUser = db.Users.Where(x => x.TcIdentityKey == tcIdentityKeyModel.TcIdentityKey).FirstOrDefault();
 				if (tempUser != null)
 				{
 					Account account = new Account();
@@ -85,7 +84,7 @@ namespace BankAppCoreWebApi.Controllers
 					}
 					else
 					{
-						account.accountNo = TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
+						account.accountNo = tcIdentityKeyModel.TcIdentityKey.ToString() + 1001;//Tc no'sunun yanına 1001 ekle.
 					}
 					try
 					{
@@ -113,9 +112,9 @@ namespace BankAppCoreWebApi.Controllers
 			using (var db = new WebApiContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == drawMoney.accountNo);//Hesabı bul.
-				if (tempAccount == null)//Eğer müşteri daha önce hiç hesap açmadıysa
+				if (tempAccount == null)
 				{
-					return 0;
+					return 0;//Hesap bulunamadı.
 				}
 				else
 				{
