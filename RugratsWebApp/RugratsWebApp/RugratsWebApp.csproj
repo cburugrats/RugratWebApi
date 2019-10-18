@@ -134,6 +134,7 @@
     <Compile Include="Models\Login\_SessionController.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\withDrawMoneyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7017,6 +7018,9 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Account\List.cshtml" />
+    <Content Include="Views\Account\MoneyWithdraw.cshtml" />
+    <Content Include="Views\Account\Shortcuts.cshtml" />
+    <Content Include="Views\Account\DepositMoney.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

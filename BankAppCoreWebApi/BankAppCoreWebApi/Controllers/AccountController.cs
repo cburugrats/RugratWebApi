@@ -194,8 +194,15 @@ namespace BankAppCoreWebApi.Controllers
 				try
 				{
 					var tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
-					tempAccount.status = false;//Hesabı pasif hale getir.
-					db.SaveChanges();
+                    if (tempAccount.balance==0)
+                    {
+                        tempAccount.status = false;//Hesabı pasif hale getir.
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return 2;
+                    }
 				}
 				catch (Exception)
 				{
