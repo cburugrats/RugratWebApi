@@ -14,7 +14,7 @@ namespace BankAppCoreWebApi.Controllers
 
 		#region getUsers
 
-		// GET api/user
+		// GET api/getUsers
 		[HttpGet]
 		[Route("getUsers")]
 		public IEnumerable<User> Get()
