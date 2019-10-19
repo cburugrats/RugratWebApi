@@ -9,5 +9,6 @@ namespace BankAppCoreWebApi.Models
 	{
 		public string senderAccountNo { get; set; }
 		public string receiverAccountNo { get; set; }
+		public decimal amount { get; set; }
 	}
 }

@@ -72,8 +72,31 @@ namespace BankAppCoreWebApi.Controllers
 		{
 			using (var db = new WebApiContext())
 			{
-				//Account senderAccount=
-				return 0;
+				Account senderAccount = db.Accounts.Where(x => x.accountNo == virmanModel.senderAccountNo).FirstOrDefault();
+				Account receiverAccoount = db.Accounts.Where(x => x.accountNo == virmanModel.receiverAccountNo).FirstOrDefault();
+				if (senderAccount.customerId!=receiverAccoount.customerId)
+				{
+					return 2;//Para göndermeye çalıştğınız hesap size ait değil!
+				}
+				else
+				{
+					if (senderAccount.balance >= virmanModel.amount)
+					{
+						senderAccount.balance -= virmanModel.amount;
+						receiverAccoount.balance += virmanModel.amount;
+						try
+						{
+							db.SaveChanges();
+							return 1;//Para gönderme işlemi başarılı.
+						}
+						catch (Exception)
+						{
+							return 3;//Veritabanına kaydedilirken hata oluştu!
+						}
+					}
+					else
+						return 4;//Hesapta yeterli para yok.
+				}
 			}				
 		}
 
