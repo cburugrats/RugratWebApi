@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 
 namespace BankAppCoreWebApi.Models
 {
-	public class MoneyTransfers:BaseEntity
+	public class VirmanModel
 	{
-		public int Id { get; set; }
 		public string senderAccountNo { get; set; }
-		public decimal balanceSent { get; set; }
 		public string receiverAccountNo { get; set; }
-		public DateTime realizationTime { get; set; }
-		public bool status { get; set; }
-		public bool transferType { get; set; }
 	}
 }

@@ -60,7 +60,7 @@ namespace BankAppCoreWebApi.Controllers
 		// POST api/user
 		[HttpPost]
 		[Route("openAnAccount")]		
-		public int PostRegister([FromBody] TcIdentityKeyModel tcIdentityKeyModel)
+		public int PostOpenAnAccount([FromBody] TcIdentityKeyModel tcIdentityKeyModel)
 		{
 			using (var db = new WebApiContext())
 			{
@@ -173,15 +173,6 @@ namespace BankAppCoreWebApi.Controllers
 		} 
 		#endregion
 
-		#region HttpPut
-		// PUT api/user/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
-
-		}
-		#endregion
-
 		#region Close Account By AccountNo
 		// DELETE api/values/5
 		[HttpGet]
@@ -193,15 +184,8 @@ namespace BankAppCoreWebApi.Controllers
 				try
 				{
 					var tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
-                    if (tempAccount.balance==0)
-                    {
-                        tempAccount.status = false;//Hesabı pasif hale getir.
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        return 2;
-                    }
+					tempAccount.status = false;//Hesabı pasif hale getir.
+					db.SaveChanges();
 				}
 				catch (Exception)
 				{
