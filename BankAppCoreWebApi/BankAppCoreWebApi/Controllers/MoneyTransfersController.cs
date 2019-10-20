@@ -72,8 +72,8 @@ namespace BankAppCoreWebApi.Controllers
 		{
 			using (var db = new WebApiContext())
 			{
-				Account senderAccount = db.Accounts.Where(x => x.accountNo == virmanModel.senderAccountNo).FirstOrDefault();
-				Account receiverAccoount = db.Accounts.Where(x => x.accountNo == virmanModel.receiverAccountNo).FirstOrDefault();
+				Account senderAccount = db.Accounts.Where(x => x.Id == virmanModel.senderAccountId).FirstOrDefault();
+				Account receiverAccoount = db.Accounts.Where(x => x.Id == virmanModel.receiverAccountId).FirstOrDefault();
 				if (senderAccount.customerId!=receiverAccoount.customerId)
 				{
 					return 2;//Para göndermeye çalıştğınız hesap size ait değil!
