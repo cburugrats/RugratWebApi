@@ -37,7 +37,7 @@ namespace BankAppCoreWebApi.Controllers
 		}
 		#endregion
 
-		#region Get Account By accountId With CustomerId
+		#region Get Account By accountNo With CustomerId
 		// GET api/getaccountbyid/5
 		[HttpGet("getaccountbyNo/{accountNo}")]
 		public Account GetAccount(string accountNo)

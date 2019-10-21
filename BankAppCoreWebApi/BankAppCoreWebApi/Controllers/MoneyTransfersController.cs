@@ -16,17 +16,14 @@ namespace BankAppCoreWebApi.Controllers
 		#region Havale Transfer
 		[HttpPost]
 		[Route("havale")]
-		public int HavaleTranser([FromBody] HavaleModel havaleModel)
+		public int HavaleTranser([FromBody] MoneyTransferModel havaleModel)
 		{
 			using (var db = new WebApiContext())
 			{
-				Account senderAccount = db.Accounts.Where(x => x.Id == havaleModel.senderAccountId).FirstOrDefault();
+				Account senderAccount = db.Accounts.Where(x => x.accountNo == havaleModel.senderAccountNo).FirstOrDefault();//Gönderenin hesabı bulunuyor.
 				if (senderAccount.balance >= havaleModel.amount)//Eğer gönderen hesapta yeterli para yoksa.
 				{
-					User receiverUser = db.Users.Where(x => x.TcIdentityKey == havaleModel.receiverTcIdentityKey).FirstOrDefault();
-					if (receiverUser != null)//Alıcı kullanıcı bulunduysa.
-					{
-						Account receiverAccount = db.Accounts.Where(x => x.customerId == receiverUser.customerId && x.status == true).OrderBy(x => x.netBalance).FirstOrDefault();
+						Account receiverAccount = db.Accounts.Where(x => x.accountNo == havaleModel.receiverAccountNo && x.status == true).FirstOrDefault();//Alıcı hesap bulunuyor.
 						if (receiverAccount != null)//Alıcı hesap bulunduysa.
 						{
 							senderAccount.balance -= havaleModel.amount;
@@ -46,13 +43,8 @@ namespace BankAppCoreWebApi.Controllers
 						}
 						else
 						{
-							return 3;//Alıcıya ait aktif bir hesap bulunamadı!
+							return 3;//Alıcıya ait aktif hesap bulunamadı!
 						}
-					}
-					else
-					{
-						return 2;//Alıcı kullanıcı buluanamdı!
-					}
 
 				}
 				else
@@ -68,7 +60,7 @@ namespace BankAppCoreWebApi.Controllers
 
 		[HttpPost]
 		[Route("virman")]
-		public int VirmanTranser([FromBody] VirmanModel virmanModel)
+		public int VirmanTranser([FromBody] MoneyTransferModel virmanModel)
 		{
 			using (var db = new WebApiContext())
 			{
