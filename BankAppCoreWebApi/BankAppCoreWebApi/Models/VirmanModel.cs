@@ -7,8 +7,8 @@ namespace BankAppCoreWebApi.Models
 {
 	public class VirmanModel
 	{
-		public int senderAccountId { get; set; }
-		public int receiverAccountId { get; set; }
+		public string senderAccountNo { get; set; }
+		public string receiverAccountNo { get; set; }
 		public decimal amount { get; set; }
 	}
 }
