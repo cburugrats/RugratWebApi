@@ -18,13 +18,13 @@ namespace BankAppCoreWebApi.Controllers
 	public class AccountController : ControllerBase
 	{
 		#region getAccounts
-		
+
 		[HttpGet]
 		[Route("{TcIdentityKey}")]
 		public IEnumerable<Account> Get(long TcIdentityKey)
 		{
 			using (var db = new WebApiContext())
-			{			
+			{
 				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
 				if (tempUser != null)
 				{
@@ -44,14 +44,14 @@ namespace BankAppCoreWebApi.Controllers
 		{
 			using (var db = new WebApiContext())
 			{
-					Account tempAccount = null;
-					tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == accountNo);
-					if (tempAccount == null)
-					{
-						return null;//Hesap bulunamadı.
-					}
-					else
-						return tempAccount;
+				Account tempAccount = null;
+				tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == accountNo);
+				if (tempAccount == null)
+				{
+					return null;//Hesap bulunamadı.
+				}
+				else
+					return tempAccount;
 			}
 		}
 		#endregion
@@ -59,7 +59,7 @@ namespace BankAppCoreWebApi.Controllers
 		#region Open An Account
 		// POST api/user
 		[HttpPost]
-		[Route("openAnAccount")]		
+		[Route("openAnAccount")]
 		public int PostOpenAnAccount([FromBody] TcIdentityKeyModel tcIdentityKeyModel)
 		{
 			using (var db = new WebApiContext())
@@ -95,7 +95,7 @@ namespace BankAppCoreWebApi.Controllers
 					{
 						return 2;//Veritabanına kaydedilemedi!
 					}
-					
+
 					return 1;//Hesap başarıyla açıldı.
 				}
 				else
@@ -118,14 +118,13 @@ namespace BankAppCoreWebApi.Controllers
 				}
 				else
 				{
-					if (tempAccount.netBalance<drawMoney.Balance)
+					if (tempAccount.balance < drawMoney.Balance)
 					{
 						return 2;//Hesapta yeterli para yok.
 					}
 					else
 					{
 						tempAccount.balance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
-						tempAccount.netBalance -= drawMoney.Balance;
 					}
 				}
 				try
@@ -139,7 +138,7 @@ namespace BankAppCoreWebApi.Controllers
 				}
 			}
 			return 1;//Para başarıyla çekildi.
-		} 
+		}
 		#endregion
 
 		#region To Deposit Money
@@ -170,7 +169,7 @@ namespace BankAppCoreWebApi.Controllers
 				}
 			}
 			return 1;//Para başarıyla yatırıldı.
-		} 
+		}
 		#endregion
 
 		#region Close Account By AccountNo
@@ -181,19 +180,31 @@ namespace BankAppCoreWebApi.Controllers
 		{
 			using (var db = new WebApiContext())
 			{
-				try
+				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
+				if (tempAccount != null)
 				{
-					var tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
-					tempAccount.status = false;//Hesabı pasif hale getir.
-					db.SaveChanges();
+					if (tempAccount.balance != 0)
+					{
+						return 2;//Hesapta para olduğu için kapatılamadı.
+					}
+					else
+					{
+						try
+						{
+							tempAccount.status = false;//Hesabı pasif hale getir.
+							db.SaveChanges();
+							return 1;//Başarıyla kapatıldı.
+						}
+						catch (Exception)
+						{
+							return 3;//Veritabanına kaydedilirken hata oluştu!
+						}						
+					}
 				}
-				catch (Exception)
-				{
-					return 0;//Hata oluştu.
-				}
-				return 1;//Başarıyla kapatıldı.
-			}
-		} 
-		#endregion
+				else
+					return 0;//Hesap bulunamadı.
+			}			
+		}
 	}
+	#endregion
 }
