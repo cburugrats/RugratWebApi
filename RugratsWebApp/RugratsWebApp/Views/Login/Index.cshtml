@@ -52,7 +52,7 @@
                     }
                     <div class="form-group has-feedback">
 
-                        <input Name="TcIdentityKey" onkeypress="return this.value.length<=10" type="number" class="form-control" placeholder="TC" maxlength="15" required>
+                        <input Name="TcIdentityKey" pattern="\d*" type="text" class="form-control" placeholder="TC" maxlength="11" required>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">

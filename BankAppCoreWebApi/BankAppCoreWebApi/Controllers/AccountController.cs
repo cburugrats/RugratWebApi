@@ -125,7 +125,8 @@ namespace BankAppCoreWebApi.Controllers
 					else
 					{
 						tempAccount.balance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
-					}
+                        tempAccount.netBalance -= drawMoney.Balance;//Hesaptan {balance} kadar para çek.
+                    }
 				}
 				try
 				{

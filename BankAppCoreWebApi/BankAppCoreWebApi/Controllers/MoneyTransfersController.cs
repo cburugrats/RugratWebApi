@@ -27,9 +27,11 @@ namespace BankAppCoreWebApi.Controllers
 						if (receiverAccount != null)//Alıcı hesap bulunduysa.
 						{
 							senderAccount.balance -= havaleModel.amount;
+                            senderAccount.netBalance -= havaleModel.amount;
 							receiverAccount.balance += havaleModel.amount;
-							//MoneyTransfers moneyTransfer = new MoneyTransfers() { balanceSent = havaleModel.amount, realizationTime = DateTime.Now, receiverAccountNo = receiverAccount.accountNo, senderAccountNo = senderAccount.accountNo, status = true, transferType = true, createdDate = DateTime.Now, updatedDate = DateTime.Now };
-							try
+                            receiverAccount.netBalance += havaleModel.amount;
+                        //MoneyTransfers moneyTransfer = new MoneyTransfers() { balanceSent = havaleModel.amount, realizationTime = DateTime.Now, receiverAccountNo = receiverAccount.accountNo, senderAccountNo = senderAccount.accountNo, status = true, transferType = true, createdDate = DateTime.Now, updatedDate = DateTime.Now };
+                        try
 							{
 								//db.MoneyTransfers.Add(moneyTransfer);
 								db.SaveChanges();
@@ -75,8 +77,10 @@ namespace BankAppCoreWebApi.Controllers
 					if (senderAccount.balance >= virmanModel.amount)
 					{
 						senderAccount.balance -= virmanModel.amount;
-						receiverAccoount.balance += virmanModel.amount;
-						try
+                        senderAccount.netBalance -= virmanModel.amount;
+                        receiverAccoount.balance += virmanModel.amount;
+                        receiverAccoount.netBalance += virmanModel.amount;
+                        try
 						{
 							db.SaveChanges();
 							return 1;//Para gönderme işlemi başarılı.
