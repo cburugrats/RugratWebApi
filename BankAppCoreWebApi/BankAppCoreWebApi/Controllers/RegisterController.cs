@@ -33,6 +33,10 @@ namespace BankAppCoreWebApi.Controllers
 				Customer customer = new Customer();
 				customer.firstname = registerModel.firstname;
 				customer.surname = registerModel.surname;
+				if (DateTime.Now.Year-registerModel.dateOfBirth.Year<18)
+				{
+					return 4;//18 yaşından küçükler kayıt olamaz!
+				}
 				customer.dateOfBirth = registerModel.dateOfBirth;
 				customer.phoneNumber = registerModel.phoneNumber;
 				customer.eMail = registerModel.eMail;
