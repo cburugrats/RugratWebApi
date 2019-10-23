@@ -95,7 +95,6 @@ namespace BankAppCoreWebApi.Controllers
 				}
 			}				
 		}
-
 		#endregion Virman Transfer
 
 	}
