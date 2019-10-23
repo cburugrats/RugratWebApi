@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -27,20 +28,20 @@ namespace RugratsWebApp.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync(FormCollection collection)
         {
-            RegisterModel nRegister = new RegisterModel
-            {
-                TcIdentityKey = Int64.Parse(collection["TcIdentityKey"].ToString()),
-                userName = collection["TcIdentityKey"].ToString(),
-                surname = collection["surname"].ToString(),
-                firstname = collection["firstname"].ToString(),
-                phoneNumber = Int64.Parse(collection["phoneNumber"].ToString()),
-                userPassword = collection["userPassword"].ToString(),
-                eMail = collection["eMail"].ToString(),
-                dateOfBirth = Convert.ToDateTime(collection["dateOfBirth"].ToString())
-            };
+            
             try
             {
-
+                Regex digitsOnly = new Regex(@"^[0-9]{5}$");
+                bool a = digitsOnly.IsMatch(collection["phoneNumber"].ToString());
+                RegisterModel nRegister = new RegisterModel();
+                nRegister.TcIdentityKey = Int64.Parse(collection["TcIdentityKey"].ToString());
+                nRegister.userName = collection["TcIdentityKey"].ToString();
+                nRegister.surname = collection["surname"].ToString();
+                nRegister.firstname = collection["firstname"].ToString();
+                nRegister.phoneNumber = Int64.Parse(digitsOnly.Replace(collection["phoneNumber"].ToString(), ""));
+                nRegister.userPassword = collection["userPassword"].ToString();
+                nRegister.eMail = collection["eMail"].ToString();
+                nRegister.dateOfBirth = Convert.ToDateTime(collection["dateOfBirth"].ToString());
                 // TODO: Add insert logic here
                 // Create a HttpClient
                 using (var client = new HttpClient())
@@ -82,7 +83,8 @@ namespace RugratsWebApp.Controllers
             }
             catch
             {
-                return View();
+                ViewBag.RegisterResponse = "You Have Entered Missing Information";
+                return View("Index");
             }
         }
     }

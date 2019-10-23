@@ -46,26 +46,29 @@ namespace RugratsWebApp.Controllers
                         }
                         else if (response == "1")
                         {
-                            //Bilinmeyen Hata
-                            ViewBag.AccountResponse = "Succes";
+                            TempData["status"] = 1;
+                            TempData["StatusDescription"] = "Succes";
                             return RedirectToAction("List", "Account");
                         }
                         else
                         {
-                            ViewBag.AccountResponse = "Unknown error occurred";
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "Unknown error occurred";
                             return RedirectToAction("List", "Account");
                         }
                     }
                     else
                     {
-                        ViewBag.AccountResponse = "Unknown error occurred";
+                        TempData["status"] = 0;
+                        TempData["StatusDescription"] = "Unknown error occurred";
                         return RedirectToAction("List", "Account");
                     }
                 }
             }
             catch
             {
-                ViewBag.AccountResponse = "Unknown error occurred";
+                TempData["status"] = 0;
+                TempData["StatusDescription"] = "Service is not responding.";
                 return RedirectToAction("List", "Account");
             }
 		}
@@ -100,26 +103,38 @@ namespace RugratsWebApp.Controllers
         [HttpPost]
 		public ActionResult Delete(string AccountNo)
 		{
-            List<AccountModel> accounts = new List<AccountModel>();
-            using (var client = new HttpClient())
+            try
             {
-                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                (se, cert, chain, sslerror) =>
+                List<AccountModel> accounts = new List<AccountModel>();
+                using (var client = new HttpClient())
                 {
-                    return true;
-                };
-                var task = client.GetAsync("https://localhost:44329/api/account/closeAccount/" + AccountNo)
-                  .ContinueWith((taskwithresponse) =>
-                  {
-                      var response = taskwithresponse.Result;
-                      var jsonString = response.Content.ReadAsStringAsync();
-                      jsonString.Wait();
+                    System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                    (se, cert, chain, sslerror) =>
+                    {
+                        return true;
+                    };
+                    var task = client.GetAsync("https://localhost:44329/api/account/closeAccount/" + AccountNo)
+                      .ContinueWith((taskwithresponse) =>
+                      {
+                          var response = taskwithresponse.Result;
+                          var jsonString = response.Content.ReadAsStringAsync();
+                          jsonString.Wait();
 
-                  });
-                task.Wait();
+                      });
+                    task.Wait();
+                }
+
+                TempData["status"] = 1;
+                TempData["StatusDescription"] = "Succes";
+                return RedirectToAction("List", "Account");
             }
-
-            return RedirectToAction("List", "Account");
+            catch (Exception)
+            {
+                TempData["status"] = 0;
+                TempData["StatusDescription"] = "Service is not responding.";
+                return RedirectToAction("List", "Account");
+            }
+            
         }
         [HttpGet]
         public ActionResult ShortCuts()
@@ -152,7 +167,6 @@ namespace RugratsWebApp.Controllers
         [HttpGet]
         public ActionResult MoneyWithdraw(string AccountNo)
         {
-            ViewBag.Title = "MoneyWithdraw";
             if (string.IsNullOrEmpty(User.Identity.Name))
             {
                 return RedirectToAction("Index", "Login");
@@ -207,30 +221,35 @@ namespace RugratsWebApp.Controllers
                         string response = await result.Content.ReadAsStringAsync();
                         if (response == "0")
                         {
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "No such account found.";
                             return RedirectToAction("ShortCuts", "Account");
                         }
                         else if (response == "1")
                         {
-                            //Bilinmeyen Hata
-                            ViewBag.AccountResponse = "Succes";
+                            TempData["status"] = 1;
+                            TempData["StatusDescription"] = "Succes";
                             return RedirectToAction("ShortCuts", "Account");
                         }
                         else
                         {
-                            ViewBag.AccountResponse = "Unknown error occurred";
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "No such account found.";
                             return RedirectToAction("ShortCuts", "Account");
                         }
                     }
                     else
                     {
-                        ViewBag.AccountResponse = "Unknown error occurred";
+                        TempData["status"] = 0;
+                        TempData["StatusDescription"] = "Service is not responding.";
                         return RedirectToAction("ShortCuts", "Account");
                     }
                 }
             }
             catch
             {
-                ViewBag.AccountResponse = "Unknown error occurred";
+                TempData["status"] = 0;
+                TempData["StatusDescription"] = "Unknown Error.";
                 return RedirectToAction("ShortCuts", "Account");
             }
         }
@@ -266,8 +285,6 @@ namespace RugratsWebApp.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> DepositMoney(FormCollection collection)
         {
-            TempData["status"] = 1;
-            TempData["depositMoneyStatus"] = "Succes";
             CultureInfo cultures = new CultureInfo("en-US");
             withDrawMoneyModel tMoney = new withDrawMoneyModel
             {
@@ -293,33 +310,38 @@ namespace RugratsWebApp.Controllers
                     {
                         result.EnsureSuccessStatusCode();
                         string response = await result.Content.ReadAsStringAsync();
-                        if (response == "0")
+                        if (response == "1")
                         {
+                            TempData["status"] = 1;
+                            TempData["StatusDescription"] = "Succes";
                             return RedirectToAction("ShortCuts", "Account");
                         }
-                        else if (response == "1")
+                        else if (response == "0")
                         {
-                            //Bilinmeyen Hata
-                            ViewData["status"] = 1;
-                            ViewData["depositMoneyStatus"] = "Succes";
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "No such account found.";
                             return RedirectToAction("ShortCuts", "Account");
                         }
                         else
                         {
-                            ViewBag.AccountResponse = "Unknown error occurred";
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "Unknown Error.";
                             return RedirectToAction("ShortCuts", "Account");
                         }
+
                     }
                     else
                     {
-                        ViewBag.AccountResponse = "Unknown error occurred";
+                        TempData["status"] = 0;
+                        TempData["StatusDescription"] = "Service is not responding.";
                         return RedirectToAction("ShortCuts", "Account");
                     }
                 }
             }
             catch
             {
-                ViewBag.AccountResponse = "Unknown error occurred";
+                TempData["status"] = 0;
+                TempData["StatusDescription"] = "Unknown Error";
                 return RedirectToAction("ShortCuts", "Account");
             }
         }

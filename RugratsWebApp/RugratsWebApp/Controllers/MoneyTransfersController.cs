@@ -78,6 +78,7 @@ namespace RugratsWebApp.Controllers
             tMoney.senderAccountNo = collection["SenderAccountNo"].ToString();
             tMoney.receiverAccountNo = collection["ReceiverAccountNo"].ToString();
             tMoney.amount = Convert.ToDecimal(collection["Amount"].ToString(), cultures);
+            tMoney.statement = collection["description"].ToString();
             tMoney.realizationTime = DateTime.Now;
             try
             {
@@ -167,6 +168,7 @@ namespace RugratsWebApp.Controllers
             tMoney.senderAccountNo = collection["SenderAccountNo"].ToString();
             tMoney.receiverAccountNo = collection["ReceiverAccountNo"].ToString();
             tMoney.amount = Convert.ToDecimal(collection["Amount"].ToString(), cultures);
+            tMoney.statement = collection["description"].ToString();
             tMoney.realizationTime = DateTime.Now;
             try
             {
@@ -214,7 +216,6 @@ namespace RugratsWebApp.Controllers
                 ViewBag.AccountResponse = "Unknown error occurred";
                 return RedirectToAction("ShortCuts", "Account");
             }
-            return View();
         }
 
     }

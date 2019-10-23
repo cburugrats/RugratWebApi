@@ -11,5 +11,6 @@ namespace RugratsWebApp.Models
         public string senderAccountNo { get; set; }
         public decimal amount { get; set; }
         public DateTime? realizationTime { get; set; }
+        public string statement { get; set; }
     }
 }
