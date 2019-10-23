@@ -13,6 +13,7 @@ namespace BankAppCoreWebApi.Models
 		public string receiverAccountNo { get; set; }
 		public DateTime realizationTime { get; set; }
 		public bool status { get; set; }
-		public bool transferType { get; set; }
+		public int transferTypeId { get; set; }
+		public string statement { get; set; }
 	}
 }
