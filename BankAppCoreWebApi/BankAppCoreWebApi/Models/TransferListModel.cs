@@ -10,7 +10,8 @@ namespace BankAppCoreWebApi.Models
 		public string receiverAccountNo { get; set; }
 		public string senderAccountNo { get; set; }
 		public string transferType { get; set; }
-		public decimal balanceSent { get; set; }
-		public DateTime? createdDate { get; set; }
+        public decimal amount { get; set; }
+        public string statement { get; set; }
+        public DateTime? createdDate { get; set; }
 	}
 }

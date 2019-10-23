@@ -99,9 +99,9 @@
                                         @Html.DisplayFor(modelItem => item.lastTransactionDate)
                                     </td>
                                     <td>
-                                        <form action="/Account/Delete" method="post">
+                                        <form action="/Account/AccountInfo" method="get">
                                             <input type="hidden" name="AccountNo" value="@item.accountNo" />
-                                            <button type="submit" class="btn btn-block btn-danger btn-xs">Close This Account</button>
+                                            <button type="submit" class="btn btn-block btn-warning btn-xs">Account Info</button>
                                         </form>
                                     </td>
                                     <td>

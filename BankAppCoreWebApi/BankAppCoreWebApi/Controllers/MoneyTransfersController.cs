@@ -20,49 +20,62 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("havale")]
 		public int HavaleTranser([FromBody] MoneyTransferModel havaleModel)
 		{
-			using (var db = new WebApiContext())
-			{
-				Account senderAccount = db.Accounts.Where(x => x.accountNo == havaleModel.senderAccountNo).FirstOrDefault();//Gönderenin hesabı bulunuyor.
-				if (senderAccount.balance >= havaleModel.amount)//Eğer gönderen hesapta yeterli para yoksa.
-				{
-					Account receiverAccount = db.Accounts.Where(x => x.accountNo == havaleModel.receiverAccountNo && x.status == true).FirstOrDefault();//Alıcı hesap bulunuyor.
-					if (receiverAccount != null)//Alıcı hesap bulunduysa.
-					{
-						senderAccount.balance -= havaleModel.amount;
-						senderAccount.netBalance -= havaleModel.amount;
-						receiverAccount.balance += havaleModel.amount;
-						receiverAccount.netBalance += havaleModel.amount;
-						try
-						{
-							MoneyTransfers moneyTransfers = new MoneyTransfers();
-							moneyTransfers.senderAccountNo = senderAccount.accountNo;
-							moneyTransfers.receiverAccountNo = receiverAccount.accountNo;
-							moneyTransfers.realizationTime = DateTime.Now;
-							moneyTransfers.statement = havaleModel.statement;
-							moneyTransfers.transferTypeId = 1;
-							moneyTransfers.balanceSent = havaleModel.amount;
-							moneyTransfers.status = true;
-							db.MoneyTransfers.Add(moneyTransfers);
-							db.SaveChanges();
-							return 1;//Para başarıyla diğer müşteriye aktarıldı.
-						}
-						catch (Exception)
-						{
 
-							return 4;//Veritabanına kaydedilirken hata oluştu!
-						}
-					}
-					else
-					{
-						return 3;//Alıcıya ait aktif hesap bulunamadı!
-					}
+            if (havaleModel.receiverAccountNo!=havaleModel.senderAccountNo)
+            {
+                using (var db = new WebApiContext())
+                {
+                    Account senderAccount = db.Accounts.Where(x => x.accountNo == havaleModel.senderAccountNo).FirstOrDefault();//Gönderenin hesabı bulunuyor.
 
-				}
-				else
-				{
-					return 0;//Hesapta yeterli bakiye yok!
-				}
-			}
+                    if (senderAccount.balance >= havaleModel.amount)//Eğer gönderen hesapta yeterli para yoksa.
+                    {
+                        Account receiverAccount = db.Accounts.Where(x => x.accountNo == havaleModel.receiverAccountNo && x.status == true).FirstOrDefault();//Alıcı hesap bulunuyor.
+                        if (receiverAccount != null)//Alıcı hesap bulunduysa.
+                        {
+                            if (senderAccount.customerId==receiverAccount.customerId)
+                            {
+                                return 6;
+                            }
+                            senderAccount.balance -= havaleModel.amount;
+                            senderAccount.netBalance -= havaleModel.amount;
+                            receiverAccount.balance += havaleModel.amount;
+                            receiverAccount.netBalance += havaleModel.amount;
+                            try
+                            {
+                                MoneyTransfers moneyTransfers = new MoneyTransfers();
+                                moneyTransfers.senderAccountNo = senderAccount.accountNo;
+                                moneyTransfers.receiverAccountNo = receiverAccount.accountNo;
+                                moneyTransfers.realizationTime = DateTime.Now;
+                                moneyTransfers.statement = havaleModel.statement;
+                                moneyTransfers.transferTypeId = 1;
+                                moneyTransfers.balanceSent = havaleModel.amount;
+                                moneyTransfers.status = true;
+                                db.MoneyTransfers.Add(moneyTransfers);
+                                db.SaveChanges();
+                                return 1;//Para başarıyla diğer müşteriye aktarıldı.
+                            }
+                            catch (Exception)
+                            {
+
+                                return 4;//Veritabanına kaydedilirken hata oluştu!
+                            }
+                        }
+                        else
+                        {
+                            return 3;//Alıcıya ait aktif hesap bulunamadı!
+                        }
+
+                    }
+                    else
+                    {
+                        return 0;//Hesapta yeterli bakiye yok!
+                    }
+                }
+            }
+            else
+            {
+                return 5;
+            }
 		}
 
 		#endregion Havale Transfer
@@ -126,11 +139,13 @@ namespace BankAppCoreWebApi.Controllers
 						 where m.senderAccountNo == accountNo || m.receiverAccountNo == accountNo
 						 select new TransferListModel
 						 {
-							 balanceSent = m.balanceSent,
+                             amount = m.balanceSent,
 							 receiverAccountNo = m.receiverAccountNo,
 							 senderAccountNo = m.senderAccountNo,
 							 createdDate = m.createdDate,
-							 transferType=tt.transferType							
+							 transferType=tt.transferType,
+                             statement=m.statement
+                             
 						 }).ToList();
 				return a;
 			}

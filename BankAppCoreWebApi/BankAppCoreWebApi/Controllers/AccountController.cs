@@ -175,13 +175,13 @@ namespace BankAppCoreWebApi.Controllers
 
 		#region Close Account By AccountNo
 		// DELETE api/values/5
-		[HttpGet]
-		[Route("closeAccount/{AccountNo}")]
-		public int CloseAccount(string AccountNo)
+		[HttpPost]
+		[Route("closeAccount")]
+		public int CloseAccount([FromBody] Account AccountNo)
 		{
 			using (var db = new WebApiContext())
 			{
-				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo);//İstenen id'ye sahip hesabı bul.
+				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo.accountNo);//İstenen id'ye sahip hesabı bul.
 				if (tempAccount != null)
 				{
 					if (tempAccount.balance != 0)

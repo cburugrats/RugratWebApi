@@ -12,5 +12,8 @@ namespace RugratsWebApp.Models
         public decimal amount { get; set; }
         public DateTime? realizationTime { get; set; }
         public string statement { get; set; }
+        public string transferType { get; set; }
+		public DateTime? createdDate { get; set; }
+
     }
 }

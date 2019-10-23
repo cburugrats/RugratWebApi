@@ -101,40 +101,68 @@ namespace RugratsWebApp.Controllers
             return View(accounts);
         }
         [HttpPost]
-		public ActionResult Delete(string AccountNo)
+		public async System.Threading.Tasks.Task<ActionResult> Delete(string AccountNo)
 		{
+            AccountModel dModel = new AccountModel() { accountNo = AccountNo, };
             try
             {
-                List<AccountModel> accounts = new List<AccountModel>();
+                // TODO: Add insert logic here
+                // Create a HttpClient
                 using (var client = new HttpClient())
                 {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                    (se, cert, chain, sslerror) =>
+
+                    // Create post body object
+                    // Serialize C# object to Json Object
+                    var serializedProduct = JsonConvert.SerializeObject(dModel);
+                    // Json object to System.Net.Http content type
+                    var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
+                    // Post Request to the URI
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/account/closeAccount", content);
+                    // Check for result
+                    if (result.IsSuccessStatusCode)
                     {
-                        return true;
-                    };
-                    var task = client.GetAsync("https://localhost:44329/api/account/closeAccount/" + AccountNo)
-                      .ContinueWith((taskwithresponse) =>
-                      {
-                          var response = taskwithresponse.Result;
-                          var jsonString = response.Content.ReadAsStringAsync();
-                          jsonString.Wait();
+                        result.EnsureSuccessStatusCode();
+                        string response = await result.Content.ReadAsStringAsync();
+                        if (response == "1")
+                        {
+                            TempData["status"] = 1;
+                            TempData["StatusDescription"] = "Succes";
+                            return RedirectToAction("List", "Account");
+                        }
+                        else if (response == "0")
+                        {
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "No such account found.";
+                            return RedirectToAction("List", "Account");
+                        }
+                        else if (response == "2")
+                        {
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "Could not close because there is balance on account.";
+                            return RedirectToAction("List", "Account");
+                        }
+                        else
+                        {
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "Unknown Error.";
+                            return RedirectToAction("List", "Account");
+                        }
 
-                      });
-                    task.Wait();
+                    }
+                    else
+                    {
+                        TempData["status"] = 0;
+                        TempData["StatusDescription"] = "Service is not responding.";
+                        return RedirectToAction("List", "Account");
+                    }
                 }
-
-                TempData["status"] = 1;
-                TempData["StatusDescription"] = "Succes";
-                return RedirectToAction("List", "Account");
             }
-            catch (Exception)
+            catch
             {
                 TempData["status"] = 0;
-                TempData["StatusDescription"] = "Service is not responding.";
+                TempData["StatusDescription"] = "Unknown Error";
                 return RedirectToAction("List", "Account");
             }
-            
         }
         [HttpGet]
         public ActionResult ShortCuts()
@@ -229,6 +257,12 @@ namespace RugratsWebApp.Controllers
                         {
                             TempData["status"] = 1;
                             TempData["StatusDescription"] = "Succes";
+                            return RedirectToAction("ShortCuts", "Account");
+                        }
+                        else if (response == "2")
+                        {
+                            TempData["status"] = 0;
+                            TempData["StatusDescription"] = "There is not enough money in the account";
                             return RedirectToAction("ShortCuts", "Account");
                         }
                         else
@@ -344,6 +378,48 @@ namespace RugratsWebApp.Controllers
                 TempData["StatusDescription"] = "Unknown Error";
                 return RedirectToAction("ShortCuts", "Account");
             }
+        }
+        [HttpGet]
+        public ActionResult AccountInfo(string AccountNo)
+        {
+            if (string.IsNullOrEmpty(User.Identity.Name))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            List<MoneyTransferModel> tModel = new List<MoneyTransferModel>();
+            using (var client = new HttpClient())
+            {
+                var task = client.GetAsync("https://localhost:44329/api/MoneyTransfers/getTransferList/" + AccountNo)
+                  .ContinueWith((taskwithresponse) =>
+                  {
+                      var response = taskwithresponse.Result;
+                      var jsonString = response.Content.ReadAsStringAsync();
+                      jsonString.Wait();
+                      tModel = JsonConvert.DeserializeObject<List<MoneyTransferModel>>(jsonString.Result);
+
+                  });
+                task.Wait();
+            }
+            AccountModel account = new AccountModel();
+            using (var client = new HttpClient())
+            {
+                var task = client.GetAsync("https://localhost:44329/api/account/getaccountbyNo/" + AccountNo)
+                  .ContinueWith((taskwithresponse) =>
+                  {
+                      var response = taskwithresponse.Result;
+                      var jsonString = response.Content.ReadAsStringAsync();
+                      jsonString.Wait();
+                      account = JsonConvert.DeserializeObject<AccountModel>(jsonString.Result);
+
+                  });
+                task.Wait();
+            }
+            ViewBag.AccountNo = account.accountNo;
+            ViewBag.balance = account.balance;
+            ViewBag.blockageAmount = account.blockageAmount;
+            ViewBag.netBalance = account.netBalance;
+            ViewBag.openingDate = account.openingDate;
+            return View(tModel);
         }
     }
 
