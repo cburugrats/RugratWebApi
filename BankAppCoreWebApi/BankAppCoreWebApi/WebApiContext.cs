@@ -19,5 +19,12 @@ namespace BankAppCoreWebApi
 		{
 			optionsBuilder.UseSqlServer(@"Server=desktop-fnnj9k8\sqlexpress; Database=RugratsDb; Trusted_Connection=true;");
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Query<TransferListModel>();
+		}
 	}
 }
