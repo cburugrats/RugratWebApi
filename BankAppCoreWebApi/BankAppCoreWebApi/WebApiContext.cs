@@ -17,7 +17,8 @@ namespace BankAppCoreWebApi
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer(@"Server=desktop-fnnj9k8\sqlexpress; Database=RugratsDb; Trusted_Connection=true;");
+			optionsBuilder.UseSqlServer(@"Server=tcp:rugrats.database.windows.net,1433;Initial Catalog=RugratsDb;Persist Security Info=False;User ID=Rugrat;Password=Kayisi44;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+
 		}
 	}
 }

@@ -125,6 +125,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MoneyTransfersController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -132,7 +133,9 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Login\_SessionController.cs" />
+    <Compile Include="Models\MoneyTransferModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\tcIdentityKeyModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\withDrawMoneyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -6990,6 +6993,7 @@
     <Content Include="Content\dist\css\adminlte.min.css.map" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-codes.json" />
+    <None Include="Properties\PublishProfiles\RugratsWebApp - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -7021,6 +7025,11 @@
     <Content Include="Views\Account\MoneyWithdraw.cshtml" />
     <Content Include="Views\Account\Shortcuts.cshtml" />
     <Content Include="Views\Account\DepositMoney.cshtml" />
+    <Content Include="Views\MoneyTransfers\toOwnAccounts.cshtml" />
+    <Content Include="Views\MoneyTransfers\SenderToOwnAccounts.cshtml" />
+    <Content Include="Views\MoneyTransfers\SenderToOtherAccounts.cshtml" />
+    <Content Include="Views\MoneyTransfers\ToOtherAccounts.cshtml" />
+    <Content Include="Views\Account\AccountInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
