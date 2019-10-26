@@ -103,16 +103,8 @@ namespace BankAppCoreWebApi.Controllers
 						receiverAccoount.balance += virmanModel.amount;
 						receiverAccoount.netBalance += virmanModel.amount;
 						try
-						{
-							MoneyTransfers moneyTransfers = new MoneyTransfers();
-							moneyTransfers.senderAccountNo = senderAccount.accountNo;
-							moneyTransfers.receiverAccountNo = receiverAccoount.accountNo;
-							moneyTransfers.realizationTime = DateTime.Now;
-							moneyTransfers.statement = virmanModel.statement;
-							moneyTransfers.transferTypeId = 2;
-							moneyTransfers.balanceSent = virmanModel.amount;
-							moneyTransfers.status = true;
-							db.MoneyTransfers.Add(moneyTransfers);
+						{						
+							var transferList = db.Database.ExecuteSqlCommand("exec [sp_Transfer] {0},{1},{2},{3},{4},{5}", virmanModel.senderAccountNo,virmanModel.receiverAccountNo,virmanModel.amount,2,DateTime.Now,virmanModel.statement);
 							db.SaveChanges();
 							return 1;//Para gönderme işlemi başarılı.
 						}
@@ -128,13 +120,15 @@ namespace BankAppCoreWebApi.Controllers
 		}
 		#endregion Virman Transfer
 
+		#region Get Transfer List
+
 		[HttpGet("getTransferList/{accountNo}")]
 		public IEnumerable<TransferListModel> GetTransfers(string accountNo)
 		{
 			using (var db = new WebApiContext())
 			{
 
-				var a = (from m in db.MoneyTransfers
+				/*var a = (from m in db.MoneyTransfers
 						 join tt in db.TransferTypes on m.transferTypeId equals tt.Id
 						 where m.senderAccountNo == accountNo || m.receiverAccountNo == accountNo
 						 select new TransferListModel
@@ -146,9 +140,11 @@ namespace BankAppCoreWebApi.Controllers
 							 transferType=tt.transferType,
                              statement=m.statement
                              
-						 }).ToList();
-				return a;
+						 }).ToList();*/
+				var transferList = db.Query<TransferListModel>().FromSql("exec [sp_TransferListeleme] {0}", accountNo);
+				return transferList.ToList();
 			}
 		}
+		#endregion Get Transfer List
 	}
 }

@@ -20,5 +20,12 @@ namespace BankAppCoreWebApi
 			optionsBuilder.UseSqlServer(@"Server=tcp:rugrats.database.windows.net,1433;Initial Catalog=RugratsDb;Persist Security Info=False;User ID=Rugrat;Password=Kayisi44;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Query<TransferListModel>();
+		}
 	}
 }
