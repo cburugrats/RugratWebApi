@@ -1,5 +1,14 @@
 ## RugratWebApi
 
+
+### Place 1
+
+Hello, this is some text to fill in this, [UserController](#UserController), is a link to the second place.
+
+### Place 2
+
+Place one has the fun times of linking here, but I can also link back [HgsController](#HgsController).
+
 ### UserController
 ----
 
@@ -69,7 +78,10 @@
  
 * **Error Response:**
 
-  * **Content:** 0 <br /> CustomerId boş bırakılamaz!
+  * **Content:** `0` CustomerId boş bırakılamaz!<br />
+  * **Content:** `2` Balance boş bırakılamaz!<br />
+  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
+  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
 
 ## Title
 
