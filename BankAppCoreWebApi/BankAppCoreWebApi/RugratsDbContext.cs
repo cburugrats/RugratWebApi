@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankAppCoreWebApi
 {
-	public class WebApiContext:DbContext
+	public class RugratsDbContext:DbContext
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Customer> Customers{ get; set; }
