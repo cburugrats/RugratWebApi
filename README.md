@@ -1,6 +1,6 @@
-# RugratWebApi
+## RugratWebApi
 
-**UserController**
+### UserController
 ----
 
 **Get User By UserId**
@@ -9,7 +9,7 @@
 
 * **URL**
 
-  /user/:id
+  api/user/:id
 
 * **Method:**
 
@@ -34,6 +34,42 @@
 
   * **Code:** 404 NOT FOUND <br />
 
+
+### HgsController
+----
+
+**Register Hgs User**
+
+  Returns json data about a request.
+
+* **URL**
+
+  api/hgs/user
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+   `customerId=[integer]`
+   `balance=[decimal]`
+ 
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `1`
+ 
+* **Error Response:**
+
+  * **Content:** 0 <br /> CustomerId boş bırakılamaz!
 
 ## Title
 
