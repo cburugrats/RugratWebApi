@@ -8,6 +8,8 @@
 ### UserController
 ----
 
+[Get User By UserId](#Get-User-By-UserId)
+
 **Get User By UserId**
 
   Returns json data about a single user.
@@ -72,6 +74,7 @@
 * **Data Params**
 
    `customerId=[integer]`
+   
    `balance=[decimal]`
  
 
@@ -142,6 +145,7 @@
 * **Data Params**
 
    `customerId=[integer]`
+   
    `balance=[decimal]`
  
 
@@ -179,6 +183,7 @@
 * **Data Params**
 
    `customerId=[integer]`
+   
    `balance=[decimal]`
  
 
