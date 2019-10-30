@@ -1,13 +1,8 @@
 ## RugratWebApi
 
 
-### Place 1
-
-Hello, this is some text to fill in this, [UserController](#UserController), is a link to the second place.
-
-### Place 2
-
-Place one has the fun times of linking here, but I can also link back [HgsController](#HgsController).
+[UserController](#UserController)
+[HgsController](#HgsController)
 
 ### UserController
 ----
