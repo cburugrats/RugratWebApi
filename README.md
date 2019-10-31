@@ -92,6 +92,8 @@
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
   
 
+[Back to Top](#Controllers)
+
 ### Get Hgs User By accountNo With CustomerId
 
   Returns json data about a single user.
@@ -125,6 +127,8 @@
   * **Content:** `null` <br />
   
   
+[Back to Top](#Controllers)
+
 ### To Deposit Money Hgs
 
   Returns json data about a request.
@@ -162,6 +166,7 @@
   * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />  
   
+[Back to Top](#Controllers)  
   
 ### With Draw Money Hgs
 
