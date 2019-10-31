@@ -42,6 +42,7 @@
 
   * **Code:** 404 NOT FOUND <br />
 
+[Back to Top](#Controllers)
 
 ### HgsController
 ----
