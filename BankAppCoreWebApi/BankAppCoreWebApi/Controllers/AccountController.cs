@@ -23,7 +23,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("{TcIdentityKey}")]
 		public IEnumerable<Account> Get(long TcIdentityKey)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				User tempUser = db.Users.Where(x => x.TcIdentityKey == TcIdentityKey).FirstOrDefault();
 				if (tempUser != null)
@@ -42,7 +42,7 @@ namespace BankAppCoreWebApi.Controllers
 		[HttpGet("getaccountbyNo/{accountNo}")]
 		public Account GetAccount(string accountNo)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				Account tempAccount = null;
 				tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == accountNo);
@@ -62,7 +62,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("openAnAccount")]
 		public int PostOpenAnAccount([FromBody] TcIdentityKeyModel tcIdentityKeyModel)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				User tempUser = db.Users.Where(x => x.TcIdentityKey == tcIdentityKeyModel.TcIdentityKey).FirstOrDefault();
 				if (tempUser != null)
@@ -109,7 +109,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("withDrawMoney")]
 		public int WithDrawMoney([FromBody] AccountNoAndMoney drawMoney)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == drawMoney.accountNo);//Hesabı bul.
 				if (tempAccount == null)
@@ -147,7 +147,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("toDepositMoney")]
 		public int toDepositMoney([FromBody] AccountNoAndMoney toDepositMoney)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == toDepositMoney.accountNo);//Hesabı bul.
 				if (tempAccount == null)
@@ -179,7 +179,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("closeAccount")]
 		public int CloseAccount([FromBody] Account AccountNo)
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				Account tempAccount = db.Accounts.FirstOrDefault(x => x.accountNo == AccountNo.accountNo);//İstenen id'ye sahip hesabı bul.
 				if (tempAccount != null)
