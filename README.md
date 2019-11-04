@@ -49,7 +49,7 @@
 
 [Register Hgs User](#Register-Hgs-User)
 
-[Get Hgs User By accountNo With CustomerId](#Get-Hgs-User-By-accountNo-With-CustomerId)
+[Get Hgs User By HgsNo](#Get-Hgs-User-By-HgsNo)
 
 [To Deposit Money Hgs](#To-Deposit-Money-Hgs)
 
@@ -75,7 +75,7 @@
 
 * **Data Params**
 
-   `customerId=[integer]`
+   'accountNo'=[string] //Paranın çekileceği hesap no.
    
    `balance=[decimal]`
  
@@ -91,11 +91,13 @@
   * **Content:** `2` Balance boş bırakılamaz!<br />
   * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
+  * **Content:** `5` Hesapta yeterli bakiye yok!<br />
+  * **Content:** `6` Hesap bulunamadı!<br />
   
 
 [Back to Top](#Controllers)
 
-### Get Hgs User By accountNo With CustomerId
+### Get Hgs User By HgsNo
 
   Returns json data about a single user.
 
@@ -111,7 +113,7 @@
 
    **Required:**
  
-   `customerId=[integer]`
+   `HgsNo=[integer]`
 
 * **Data Params**
 
@@ -150,10 +152,11 @@
 
 * **Data Params**
 
-   `customerId=[integer]`
+   `accountNo=[string]` //Paranın çekileceği hesap
    
    `balance=[decimal]`
- 
+   
+   `HgsNo=[integer]`
 
 * **Success Response:**
 
@@ -166,45 +169,7 @@
   * **Content:** `2` Bu customerId'ye bağlı bir hgs kaydı bulunamadı!<br />
   * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />  
+  * **Content:** `5` Hesapta yeterli bakiye yok!<br />
+  * **Content:** `6` Hesap bulunamadı!<br />
   
-[Back to Top](#Controllers)  
-  
-### With Draw Money Hgs
-
-  Returns json data about a request.
-
-* **URL**
-
-  api/hgs/withDrawMoney
-
-* **Method:**
-
-  `PUT`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   None
-
-* **Data Params**
-
-   `customerId=[integer]`
-   
-   `balance=[decimal]`
- 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `1`
- 
-* **Error Response:**
-
-  * **Content:** `0` Geçersiz bir customerId girdiniz!<br />
-  * **Content:** `2` Bu customerId'ye bağlı bir hgs kaydı bulunamadı!<br />
-  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
-  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />    
-
-
-[Back to Top](#Controllers)
+[Back to Top](#Controllers) 
