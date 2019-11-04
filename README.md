@@ -83,7 +83,8 @@ Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `1`
+    **Content:** `{HgsNo}= [integer]` //Eğer kayıt başarılı ise geriye kayıtta oluşan yeni HgsNo döndürülür.
+    //Hgs No 1000'den başlar ve her yeni kayıtta birer birer artar. Bu işlem serviste otomatik yapılır.
  
 * **Error Response:**
 
