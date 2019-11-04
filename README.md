@@ -91,8 +91,8 @@ Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">
   * **Content:** `2` Balance boş bırakılamaz!<br />
   * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
-  * **Content:** `5` Hesapta yeterli bakiye yok!<br />
-  * **Content:** `6` Hesap bulunamadı!<br />
+  * **Content:** `5` Paranın çekileceği hesapta yeterli bakiye yok!<br />
+  * **Content:** `6` AccountNo^ya kayıtlı bir hesap bulunamadı!<br />
   
 
 [Back to Top](#Controllers)
@@ -169,7 +169,7 @@ Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">
   * **Content:** `2` Bu customerId'ye bağlı bir hgs kaydı bulunamadı!<br />
   * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
   * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />  
-  * **Content:** `5` Hesapta yeterli bakiye yok!<br />
-  * **Content:** `6` Hesap bulunamadı!<br />
+  * **Content:** `5` Paranın çekileceği hesapta yeterli bakiye yok!<br />
+  * **Content:** `6` AccountNo^ya kayıtlı bir hesap bulunamadı!<br />
   
 [Back to Top](#Controllers) 
