@@ -47,13 +47,13 @@
 ### HgsController
 ----
 
+Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">https://bankappcorewebapirugrats.azurewebsites.net/api<a>
+
 [Register Hgs User](#Register-Hgs-User)
 
 [Get Hgs User By HgsNo](#Get-Hgs-User-By-HgsNo)
 
 [To Deposit Money Hgs](#To-Deposit-Money-Hgs)
-
-[With Draw Money Hgs](#With-Draw-Money-Hgs)
 
 ### Register Hgs User
 
@@ -61,7 +61,7 @@
 
 * **URL**
 
-  api/hgs/user
+  api/hgs
 
 * **Method:**
 
@@ -75,7 +75,7 @@
 
 * **Data Params**
 
-   'accountNo'=[string] //Paranın çekileceği hesap no.
+   `accountNo=[decimal]`  //Paranın çekileceği hesap no.
    
    `balance=[decimal]`
  
@@ -103,7 +103,7 @@
 
 * **URL**
 
-  api/hgs/user/:customerId
+  api/hgs/user/:HgsNo
 
 * **Method:**
 
