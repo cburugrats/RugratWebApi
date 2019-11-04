@@ -124,7 +124,7 @@ Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{"id":2,"customerId":7,"balance":83.0000}`
+    **Content:** `{"id":2,"HgsNo":1003,"balance":83.0000}`
  
 * **Error Response:**
 
