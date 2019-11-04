@@ -75,7 +75,7 @@ Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">
 
 * **Data Params**
 
-   `accountNo=[decimal]`  //Paranın çekileceği hesap no.
+   `accountNo=[string]`  //Paranın çekileceği hesap no.
    
    `balance=[decimal]`
  
