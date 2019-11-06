@@ -19,7 +19,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("getUsers")]
 		public IEnumerable<User> Get()
 		{
-			using (var db = new WebApiContext())
+			using (var db = new RugratsDbContext())
 			{
 				var temp = db.Users.ToList(); 
 				return temp;
@@ -32,15 +32,22 @@ namespace BankAppCoreWebApi.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<User>> GetAsync(int id)
 		{
-			var db = new WebApiContext();
+			var db = new RugratsDbContext();
 			var tempUser = await db.Users.FindAsync(id);
 
-			if (tempUser == null)
-			{
-				return NotFound();
-			}
+                if (tempUser == null)
+                {
+                    return NotFound();
+                }
 
-			return tempUser;
+                return tempUser;
+            }
+            catch (Exception e)
+            {
+                return Redirect();
+                throw;
+            }
+			
 		} 
 		#endregion
 
@@ -59,7 +66,21 @@ namespace BankAppCoreWebApi.Controllers
 		public void Delete(int id)
 		{
 
-		} 
-		#endregion
-	}
+		}
+        #endregion
+
+        // GET api/user/5
+        [HttpGet("deneme")]
+        public string deneme(int id)
+
+        {
+
+            return "AtAdam";
+        }
+        [HttpGet]
+        public ActionResult hata()
+        {
+
+        }
+    }
 }

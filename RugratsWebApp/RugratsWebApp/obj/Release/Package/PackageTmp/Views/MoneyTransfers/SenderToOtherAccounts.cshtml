@@ -17,6 +17,31 @@
 
                 </div>
             </div>
+
+            @{
+                try
+                {
+                    if (TempData["status"].ToString() == "0")
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["StatusDescription"].ToString()
+                        </div>
+                    }
+                    else if (TempData["status"].ToString() == "1")
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                            @TempData["StatusDescription"].ToString()
+                        </div>
+                    }
+
+                }
+                catch (Exception)
+                {
+                }
+
+            }
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
