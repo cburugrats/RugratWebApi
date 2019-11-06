@@ -38,19 +38,12 @@ namespace BankAppCoreWebApi.Controllers
                 var db = new WebApiContext();
                 var tempUser = await db.Users.FindAsync(id);
 
-                if (tempUser == null)
-                {
-                    return NotFound();
-                }
+			if (tempUser == null)
+			{
+				return NotFound();
+			}
 
-                return tempUser;
-            }
-            catch (Exception e)
-            {
-                return Redirect();
-                throw;
-            }
-			
+			return tempUser;
 		} 
 		#endregion
 
@@ -69,21 +62,7 @@ namespace BankAppCoreWebApi.Controllers
 		public void Delete(int id)
 		{
 
-		}
-        #endregion
-
-        // GET api/user/5
-        [HttpGet("deneme")]
-        public string deneme(int id)
-
-        {
-
-            return "AtAdam";
-        }
-        [HttpGet]
-        public ActionResult hata()
-        {
-
-        }
-    }
+		} 
+		#endregion
+	}
 }

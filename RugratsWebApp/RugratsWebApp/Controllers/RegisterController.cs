@@ -53,7 +53,7 @@ namespace RugratsWebApp.Controllers
                     // Json object to System.Net.Http content type
                     var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
                     // Post Request to the URI
-                    HttpResponseMessage result = await client.PostAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/register", content);
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/register", content);
                     // Check for result
                     if (result.IsSuccessStatusCode)
                     {

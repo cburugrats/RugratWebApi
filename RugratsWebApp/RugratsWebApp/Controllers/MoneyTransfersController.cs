@@ -28,7 +28,7 @@ namespace RugratsWebApp.Controllers
                 {
                     return true;
                 };
-                var task = client.GetAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/account/" + User.Identity.Name)
+                var task = client.GetAsync("https://localhost:44329/api/account/" + User.Identity.Name)
                   .ContinueWith((taskwithresponse) =>
                   {
                       var response = taskwithresponse.Result;
@@ -57,7 +57,7 @@ namespace RugratsWebApp.Controllers
                 {
                     return true;
                 };
-                var task = client.GetAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/account/" + User.Identity.Name)
+                var task = client.GetAsync("https://localhost:44329/api/account/" + User.Identity.Name)
                   .ContinueWith((taskwithresponse) =>
                   {
                       var response = taskwithresponse.Result;
@@ -92,7 +92,7 @@ namespace RugratsWebApp.Controllers
                     // Json object to System.Net.Http content type
                     var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
                     // Post Request to the URI
-                    HttpResponseMessage result = await client.PostAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/MoneyTransfers/virman", content);
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/MoneyTransfers/virman", content);
                     // Check for result
                     if (result.IsSuccessStatusCode)
                     {
@@ -102,26 +102,26 @@ namespace RugratsWebApp.Controllers
                         {
                             TempData["status"] = 1;
                             TempData["StatusDescription"] = "Money Transfer Successful";
-                            return RedirectToAction("ToOwnAccounts", "MoneyTransfers",tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                         else if (response == "4")
                         {
                             TempData["status"] = 0;
                             TempData["StatusDescription"] = "There's not enough money in the account.";
-                            return RedirectToAction("ToOwnAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                         else
                         {
                             TempData["status"] = 0;
                             TempData["StatusDescription"] = "Unknown error occurred.";
-                            return RedirectToAction("ToOwnAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                     }
                     else
                     {
                         TempData["status"] = 0;
                         TempData["StatusDescription"] = "Service is not responding.";
-                        return RedirectToAction("ToOwnAccounts", "MoneyTransfers", tMoney);
+                        return RedirectToAction("ShortCuts", "Account");
                     }
                 }
             }
@@ -129,7 +129,7 @@ namespace RugratsWebApp.Controllers
             {
                 TempData["status"] = 0;
                 TempData["StatusDescription"] = "Unknown error occurred";
-                return RedirectToAction("ToOwnAccounts", "MoneyTransfers", tMoney);
+                return RedirectToAction("ShortCuts", "Account");
             }
         }
         public ActionResult SenderToOtherAccounts()
@@ -146,7 +146,7 @@ namespace RugratsWebApp.Controllers
                 {
                     return true;
                 };
-                var task = client.GetAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/account/" + User.Identity.Name)
+                var task = client.GetAsync("https://localhost:44329/api/account/" + User.Identity.Name)
                   .ContinueWith((taskwithresponse) =>
                   {
                       var response = taskwithresponse.Result;
@@ -187,7 +187,7 @@ namespace RugratsWebApp.Controllers
                     // Json object to System.Net.Http content type
                     var content = new StringContent(serializedProduct, Encoding.UTF8, "application/json");
                     // Post Request to the URI
-                    HttpResponseMessage result = await client.PostAsync("https://bankappcorewebapirugrats.azurewebsites.net/api/MoneyTransfers/havale", content);
+                    HttpResponseMessage result = await client.PostAsync("https://localhost:44329/api/MoneyTransfers/havale", content);
                     // Check for result
                     if (result.IsSuccessStatusCode)
                     {
@@ -197,32 +197,32 @@ namespace RugratsWebApp.Controllers
                         {
                             TempData["status"] = 1;
                             TempData["StatusDescription"] = "Money Transfer Successful";
-                            return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                         else if (response=="4")
                         {
                             TempData["status"] = 0;
                             TempData["StatusDescription"] = "There's not enough money in the account.";
-                            return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                         else if(response=="3")
                         {
                             TempData["status"] = 0;
                             TempData["StatusDescription"] = "Recipient account not found.";
-                            return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                         else
                         {
                             TempData["status"] = 0;
                             TempData["StatusDescription"] = "Unknown error occurred.";
-                            return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                            return RedirectToAction("ShortCuts", "Account");
                         }
                     }
                     else
                     {
                         TempData["status"] = 0;
                         TempData["StatusDescription"] = "Service is not responding.";
-                        return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                        return RedirectToAction("ShortCuts", "Account");
                     }
                 }
             }
@@ -230,7 +230,7 @@ namespace RugratsWebApp.Controllers
             {
                 TempData["status"] = 0;
                 TempData["StatusDescription"] = "Unknown error occurred";
-                return RedirectToAction("SenderToOtherAccounts", "MoneyTransfers", tMoney);
+                return RedirectToAction("ShortCuts", "Account");
             }
         }
 
