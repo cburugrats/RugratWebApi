@@ -17,7 +17,7 @@ namespace BankAppCoreWebApi.Controllers
 		[HttpPost]
 		public int PostRegister([FromBody] Register registerModel)
 		{
-			var db = new RugratsDbContext();
+			var db = new WebApiContext();
 			var tempCustomer = db.Customers.FirstOrDefault(x => x.eMail == registerModel.eMail);
 			var tempUser = db.Users.FirstOrDefault(x => x.TcIdentityKey == registerModel.TcIdentityKey);
 			if (tempCustomer != null)

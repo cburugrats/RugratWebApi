@@ -1,15 +1,7 @@
-## RugratWebApi
+# RugratWebApi
 
-### Controllers
-
-[UserController](#UserController)
-
-[HgsController](#HgsController)
-
-### UserController
+**UserController**
 ----
-
-[Get User By UserId](#Get-User-By-UserId)
 
 **Get User By UserId**
 
@@ -17,7 +9,7 @@
 
 * **URL**
 
-  api/user/:id
+  /user/:id
 
 * **Method:**
 
@@ -42,169 +34,13 @@
 
   * **Code:** 404 NOT FOUND <br />
 
-[Back to Top](#Controllers)
 
-### HgsController
-----
+## Title
 
-[Register Hgs User](#Register-Hgs-User)
+### Place 1
 
-[Get Hgs User By accountNo With CustomerId](#Get-Hgs-User-By-accountNo-With-CustomerId)
+Hello, this is some text to fill in this, [here](#place-2), is a link to the second place.
 
-[To Deposit Money Hgs](#To-Deposit-Money-Hgs)
+### Place 2
 
-[With Draw Money Hgs](#With-Draw-Money-Hgs)
-
-### Register Hgs User
-
-  Returns json data about a request.
-
-* **URL**
-
-  api/hgs/user
-
-* **Method:**
-
-  `POST`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   None
-
-* **Data Params**
-
-   `customerId=[integer]`
-   
-   `balance=[decimal]`
- 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `1`
- 
-* **Error Response:**
-
-  * **Content:** `0` CustomerId boş bırakılamaz!<br />
-  * **Content:** `2` Balance boş bırakılamaz!<br />
-  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
-  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
-  
-
-[Back to Top](#Controllers)
-
-### Get Hgs User By accountNo With CustomerId
-
-  Returns json data about a single user.
-
-* **URL**
-
-  api/hgs/user/:customerId
-
-* **Method:**
-
-  `GET`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `customerId=[integer]`
-
-* **Data Params**
-
-    None
- 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `{"id":2,"customerId":7,"balance":83.0000}`
- 
-* **Error Response:**
-
-  * **Content:** `null` <br />
-  
-  
-[Back to Top](#Controllers)
-
-### To Deposit Money Hgs
-
-  Returns json data about a request.
-
-* **URL**
-
-  api/hgs/toDepositMoney
-
-* **Method:**
-
-  `PUT`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   None
-
-* **Data Params**
-
-   `customerId=[integer]`
-   
-   `balance=[decimal]`
- 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `1`
- 
-* **Error Response:**
-
-  * **Content:** `0` CustomerId boş bırakılamaz!<br />
-  * **Content:** `2` Bu customerId'ye bağlı bir hgs kaydı bulunamadı!<br />
-  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
-  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />  
-  
-[Back to Top](#Controllers)  
-  
-### With Draw Money Hgs
-
-  Returns json data about a request.
-
-* **URL**
-
-  api/hgs/withDrawMoney
-
-* **Method:**
-
-  `PUT`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   None
-
-* **Data Params**
-
-   `customerId=[integer]`
-   
-   `balance=[decimal]`
- 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `1`
- 
-* **Error Response:**
-
-  * **Content:** `0` Geçersiz bir customerId girdiniz!<br />
-  * **Content:** `2` Bu customerId'ye bağlı bir hgs kaydı bulunamadı!<br />
-  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
-  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />    
-
-
-[Back to Top](#Controllers)
+Place one has the fun times of linking here, but I can also link back [here](#place-1).

@@ -19,7 +19,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("getUsers")]
 		public IEnumerable<User> Get()
 		{
-			using (var db = new RugratsDbContext())
+			using (var db = new WebApiContext())
 			{
 				var temp = db.Users.ToList(); 
 				return temp;
@@ -31,9 +31,12 @@ namespace BankAppCoreWebApi.Controllers
 		// GET api/user/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<User>> GetAsync(int id)
-		{
-			var db = new RugratsDbContext();
-			var tempUser = await db.Users.FindAsync(id);
+		
+        {
+            try
+            {
+                var db = new WebApiContext();
+                var tempUser = await db.Users.FindAsync(id);
 
                 if (tempUser == null)
                 {
