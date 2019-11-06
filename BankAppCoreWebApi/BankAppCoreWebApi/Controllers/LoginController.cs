@@ -16,7 +16,7 @@ namespace BankAppCoreWebApi.Controllers
 		[HttpPost]
 		public int PostLogin([FromBody] User user)
 		{
-			var db = new RugratsDbContext();
+			var db = new WebApiContext();
 			var isUserValid = db.Users.FirstOrDefault(x => x.TcIdentityKey == user.TcIdentityKey && x.userPassword == user.userPassword);
 
 			if (isUserValid != null)

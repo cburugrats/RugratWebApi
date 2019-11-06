@@ -23,7 +23,7 @@ namespace BankAppCoreWebApi.Controllers
 
             if (havaleModel.receiverAccountNo!=havaleModel.senderAccountNo)
             {
-                using (var db = new RugratsDbContext())
+                using (var db = new WebApiContext())
                 {
                     Account senderAccount = db.Accounts.Where(x => x.accountNo == havaleModel.senderAccountNo).FirstOrDefault();//Gönderenin hesabı bulunuyor.
 
@@ -86,7 +86,7 @@ namespace BankAppCoreWebApi.Controllers
 		[Route("virman")]
 		public int VirmanTranser([FromBody] MoneyTransferModel virmanModel)
 		{
-			using (var db = new RugratsDbContext())
+			using (var db = new WebApiContext())
 			{
 				Account senderAccount = db.Accounts.Where(x => x.accountNo == virmanModel.senderAccountNo).FirstOrDefault();
 				Account receiverAccoount = db.Accounts.Where(x => x.accountNo == virmanModel.receiverAccountNo).FirstOrDefault();
@@ -125,7 +125,7 @@ namespace BankAppCoreWebApi.Controllers
 		[HttpGet("getTransferList/{accountNo}")]
 		public IEnumerable<TransferListModel> GetTransfers(string accountNo)
 		{
-			using (var db = new RugratsDbContext())
+			using (var db = new WebApiContext())
 			{
 
 				/*var a = (from m in db.MoneyTransfers
