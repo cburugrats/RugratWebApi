@@ -1,7 +1,15 @@
-# RugratWebApi
+## RugratWebApi
 
-**UserController**
+### Controllers
+
+[UserController](#UserController)
+
+[HgsController](#HgsController)
+
+### UserController
 ----
+
+[Get User By UserId](#Get-User-By-UserId)
 
 **Get User By UserId**
 
@@ -9,7 +17,7 @@
 
 * **URL**
 
-  /user/:id
+  api/user/:id
 
 * **Method:**
 
@@ -34,18 +42,62 @@
 
   * **Code:** 404 NOT FOUND <br />
 
+[Back to Top](#Controllers)
 
-## Title
+### HgsController
+----
 
-### Place 1
+Base api url= <a href="https://bankappcorewebapirugrats.azurewebsites.net/api/">https://bankappcorewebapirugrats.azurewebsites.net/api<a>
 
-Hello, this is some text to fill in this, [here](#place-2), is a link to the second place.
+[Register Hgs User](#Register-Hgs-User)
 
-### Place 2
+[Get Hgs User By HgsNo](#Get-Hgs-User-By-HgsNo)
 
-<<<<<<< HEAD
-Place one has the fun times of linking here, but I can also link back [here](#place-1).
-=======
+[To Deposit Money Hgs](#To-Deposit-Money-Hgs)
+
+### Register Hgs User
+
+  Returns json data about a request.
+
+* **URL**
+
+  api/hgs
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+   `accountNo=[string]`  //Paranın çekileceği hesap no.
+   
+   `balance=[decimal]`
+ 
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{HgsNo}= [integer]` //Eğer kayıt başarılı ise geriye kayıtta oluşan yeni HgsNo döndürülür.
+    //Hgs No 1000'den başlar ve her yeni kayıtta birer birer artar. Bu işlem serviste otomatik yapılır.
+ 
+* **Error Response:**
+
+  * **Content:** `0` CustomerId boş bırakılamaz!<br />
+  * **Content:** `2` Balance boş bırakılamaz!<br />
+  * **Content:** `3` Geçersiz bir para miktarı girdiniz!<br />
+  * **Content:** `4` Veritabanına kaydedilirken hata oluştu!<br />
+  * **Content:** `5` Paranın çekileceği hesapta yeterli bakiye yok!<br />
+  * **Content:** `6` AccountNo^ya kayıtlı bir hesap bulunamadı!<br />
+  
+
+[Back to Top](#Controllers)
+
 ### Get Hgs User By HgsNo
 
   Returns json data about a single user.
@@ -72,7 +124,7 @@ Place one has the fun times of linking here, but I can also link back [here](#pl
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{"id":2,"customerId":7,"balance":83.0000}`
+    **Content:** `{"id":2,"HgsNo":1003,"balance":83.0000}`
  
 * **Error Response:**
 
@@ -122,4 +174,3 @@ Place one has the fun times of linking here, but I can also link back [here](#pl
   * **Content:** `6` AccountNo^ya kayıtlı bir hesap bulunamadı!<br />
   
 [Back to Top](#Controllers) 
->>>>>>> parent of b158a2e... Update README.md
